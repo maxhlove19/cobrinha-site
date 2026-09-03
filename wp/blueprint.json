@@ -1,0 +1,11 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/",
+  "preferredVersions": { "php": "8.2", "wp": "latest" },
+  "features": { "networking": true },
+  "steps": [
+    { "step": "installTheme", "themeData": { "resource": "url", "url": "https://maxhlove19.github.io/cobrinha-site/wp/cobrinha-theme.zip" }, "options": { "activate": true } },
+    { "step": "setSiteOptions", "options": { "blogname": "Alliance Jiu Jitsu Los Angeles by Cobrinha", "blogdescription": "Brazilian Jiu-Jitsu on Wilshire since 2010", "permalink_structure": "/%postname%/" } },
+    { "step": "runPHP", "code": "<?php require '/wordpress/wp-load.php'; do_action('init'); flush_rewrite_rules();" }
+  ]
+}
