@@ -194,3 +194,13 @@
     rows.forEach(function (r) { var d = r.querySelector('td.d').textContent.trim(), m = /(\d+):(\d+)\s*(am|pm)/i.exec(r.querySelector('td.t').textContent); if (d === today && m) { var mm = (+m[1] % 12 + (/pm/i.test(m[3]) ? 12 : 0)) * 60 + (+m[2]); if (mm >= nowMin && mm < nowMin + 180) r.classList.add('now'); } });
   }
 })();
+
+/* Spanish page: translate the shared chrome (nav, dock, footer CTAs) */
+(function(){
+  if(document.documentElement.lang!=="es")return;
+  var ES_STRINGS={"Book a free class":"Reservar clase gratis","Call":"Llamar","Sign the waiver":"Firmar la exención","Academy":"Academia","Programs":"Programas","Kids":"Niños","Schedule":"Horarios","Contact":"Contacto","Women's program":"Programa de mujeres","Membership":"Membresía","Q&A":"Preguntas","Instructors":"Instructores","Visit":"Visítanos","Beginners":"Principiantes","Free class":"Clase gratis","Pricing":"Precios","Privacy":"Privacidad","Call us":"Llámanos","Start here":"Empieza aquí","Home":"Inicio"};
+  document.querySelectorAll("nav a, .menu a, .dock a, .cta-band a, .cta-band h2, footer a, footer h4").forEach(function(a){
+    var k=(a.textContent||"").replace(/\s+/g," ").trim();
+    if(ES_STRINGS[k]){a.textContent=ES_STRINGS[k];}
+  });
+})();
