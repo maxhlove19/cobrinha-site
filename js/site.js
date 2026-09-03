@@ -112,7 +112,9 @@
     }
     var idx = 0; h.innerHTML = html.split(/(<br\s*\/?>)/i).map(function (part) { if (/^<br/i.test(part)) return part; return part.split(/(\s+)/).map(function (t) { if (!t || /^\s+$/.test(t)) return t; return '<span class="w" style="--w:' + (idx++) + '">' + t + '</span>'; }).join(''); }).join('');
     if (!h.closest('.rv')) { h.classList.add('rv'); }
+    var rct = h.getBoundingClientRect(); if (rct.top < window.innerHeight && rct.bottom > 0) { h.classList.add('in'); }
   });
+  setTimeout(function () { document.querySelectorAll('h1.display, h2.display').forEach(function (h) { var r = h.getBoundingClientRect(); if (r.top < window.innerHeight * 1.2) h.classList.add('in'); }); }, 1200);
 
   // next class pill (hero + schedule): from window.SCHEDULE
   var S = window.SCHEDULE || [];

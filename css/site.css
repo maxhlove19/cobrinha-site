@@ -361,7 +361,7 @@ section:not(.dark) .plan-name,section:not(.dark) .plan-per,section:not(.dark) .p
 /* word-by-word heading reveal */
 .display .w{display:inline-block;opacity:0;transform:translateY(.35em) rotate(-2deg);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--w,0)*60ms)}
 .in .display .w,.display.in .w{opacity:1;transform:none}
-.hero .display .w{opacity:1;transform:none;animation:wIn .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--w,0)*70ms + .1s)}
+.hero .display .w,.phero .display .w{opacity:1;transform:none;animation:wIn .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--w,0)*70ms + .1s)}
 @keyframes wIn{from{opacity:0;transform:translateY(.4em)}to{opacity:1;transform:none}}
 /* next class pill */
 .next{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:8px 14px 8px 10px;font-size:13px;color:#fff;margin-bottom:18px;backdrop-filter:blur(6px)}
