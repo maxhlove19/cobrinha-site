@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /thanks.html
+Sitemap: https://maxhlove19.github.io/cobrinha-site/sitemap.xml
