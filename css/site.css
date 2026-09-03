@@ -115,7 +115,8 @@ section{padding:72px 0}
 @media(min-width:900px){.proof-in{grid-template-columns:repeat(5,minmax(0,1fr))}}
 .stat b{display:block;font-family:var(--disp);font-size:clamp(34px,5vw,72px);overflow-wrap:anywhere;font-weight:400;line-height:.95;color:#fff}
 .stat b i{font-style:normal;color:var(--red)}
-.stat span{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-lm);margin-top:6px}
+.stat>span{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-lm);margin-top:6px}
+.stat b span{font:inherit;display:inline;color:inherit}
 
 /* steps */
 .steps{display:grid;gap:18px;counter-reset:s}
@@ -300,3 +301,47 @@ section{padding:72px 0}
 .rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.hero-img{animation:none}html{scroll-behavior:auto}}
 :focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* ===== interaction layer ===== */
+/* directional reveals: .rv (up), .rv.l (from left), .rv.r (from right), .rv.up (rise more) */
+.rv.l{transform:translateX(-36px)}
+.rv.r{transform:translateX(36px)}
+.rv.up{transform:translateY(40px)}
+.rv.l.in,.rv.r.in,.rv.up.in{transform:none}
+/* staggered children */
+.stagger>*{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*70ms)}
+.stagger.in>*{opacity:1;transform:none}
+/* plans */
+.plans{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:700px){.plans{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1000px){.plans{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.plan{background:var(--ink-2);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:26px 24px 24px;position:relative;transition:transform .3s,border-color .3s}
+.plan:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.3)}
+.plan.hot{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+.plan.hot::before{content:"Most popular";position:absolute;top:-11px;left:22px;background:var(--red);color:#fff;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:3px 9px;border-radius:3px}
+.plan-name{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--tx-lm);margin:0 0 10px}
+.plan-price{font-family:var(--disp);font-size:56px;line-height:1;margin:0 0 8px;color:#fff}
+.plan-price span{font-family:var(--body);font-size:14px;color:var(--tx-lm);margin-left:4px}
+.plan-what{font-weight:600;margin:0 0 4px;color:#fff}
+.plan-per{font-size:13px;color:var(--tx-lm);margin:0}
+section:not(.dark) .plan{background:#fff;border-color:var(--line)}
+section:not(.dark) .plan-price,section:not(.dark) .plan-what{color:var(--ink)}
+section:not(.dark) .plan-name,section:not(.dark) .plan-per,section:not(.dark) .plan-price span{color:var(--tx-m)}
+/* ticker */
+.ticker{overflow:hidden;background:var(--red);color:#fff;padding:14px 0;border-top:1px solid rgba(0,0,0,.15)}
+.ticker-in{display:flex;gap:0;width:max-content;animation:tick 48s linear infinite}
+.ticker-in span{font-family:var(--disp);font-size:22px;letter-spacing:.06em;text-transform:uppercase;padding:0 28px;white-space:nowrap;position:relative}
+.ticker-in span::after{content:"";position:absolute;right:-4px;top:50%;width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.55);transform:translateY(-50%)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker:hover .ticker-in{animation-play-state:paused}
+/* parallax media */
+.media.px{overflow:hidden}
+.media.px img{will-change:transform;transform:translateY(var(--py,0)) scale(1.12)}
+/* card tilt */
+@media(hover:hover) and (pointer:fine){.pcard{transform-style:preserve-3d;transition:transform .25s ease}.pcard:hover{transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(-4px)}}
+/* nav shrink after scroll */
+.nav.small .nav-in{height:60px}
+.nav .nav-in{transition:height .25s}
+/* progress line */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--red);z-index:60;transition:width .12s linear}
+@media(prefers-reduced-motion:reduce){.rv.l,.rv.r,.rv.up,.stagger>*{transform:none;opacity:1;transition:none}.ticker-in{animation:none}.media.px img{transform:none}.pcard:hover{transform:none}}

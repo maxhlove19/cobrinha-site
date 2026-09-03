@@ -26,6 +26,32 @@
     setTimeout(function () { rv.forEach(show); }, 900);
   } else { rv.forEach(show); }
 
+  // stagger: give each child an index for the delay
+  document.querySelectorAll('.stagger').forEach(function (g) { [].forEach.call(g.children, function (c, i) { if (!c.style.getPropertyValue('--i')) c.style.setProperty('--i', i); }); });
+
+  // scroll effects: progress line, nav shrink, parallax on marked media (fine pointers only)
+  var fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches, reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var bar = document.createElement('div'); bar.className = 'progress'; document.body.appendChild(bar);
+  var nav = document.getElementById('nav'), px = [].slice.call(document.querySelectorAll('.media.px img')), ticking = false;
+  function onScroll() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      var y = window.scrollY, h = document.documentElement.scrollHeight - innerHeight;
+      bar.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+      if (nav) nav.classList.toggle('small', y > 80);
+      if (!reduce) px.forEach(function (img) { var r = img.parentNode.getBoundingClientRect(); var p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; img.style.setProperty('--py', (p * -40).toFixed(1) + 'px'); });
+      ticking = false;
+    });
+  }
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  if (!reduce) document.querySelectorAll('.media.wide, .media.tall').forEach(function (m) { if (m.querySelector('img')) m.classList.add('px'); });
+
+  // card tilt
+  if (fine && !reduce) document.querySelectorAll('.pcard').forEach(function (c) {
+    c.addEventListener('mousemove', function (e) { var r = c.getBoundingClientRect(); var x = (e.clientX - r.left) / r.width - .5, yy = (e.clientY - r.top) / r.height - .5; c.style.setProperty('--ry', (x * 8) + 'deg'); c.style.setProperty('--rx', (-yy * 8) + 'deg'); });
+    c.addEventListener('mouseleave', function () { c.style.setProperty('--ry', '0deg'); c.style.setProperty('--rx', '0deg'); });
+  });
+
   // count-up stats
   var nums = document.querySelectorAll('[data-count]');
   function countUp(el) {
