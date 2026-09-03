@@ -77,14 +77,15 @@
     });
   }
 
-  // "today" list on the home page: pick rows for the current weekday from the embedded schedule data
-  var today = document.getElementById('today');
-  if (today && window.SCHEDULE) {
+  // "today" list on the home page (re-run when the Gymdesk feed arrives)
+  window.__renderToday = function () {
+    var today = document.getElementById('today'); if (!today || !window.SCHEDULE) return;
     var d = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][new Date().getDay()];
     var list = window.SCHEDULE.filter(function (r) { return r.d === d; });
     var head = document.getElementById('todayName'); if (head) head.textContent = 'Today, ' + { Sun: 'Sunday', Mon: 'Monday', Tue: 'Tuesday', Wed: 'Wednesday', Thu: 'Thursday', Fri: 'Friday', Sat: 'Saturday' }[d];
     today.innerHTML = list.map(function (r) { return '<div class="srow"><b>' + r.c + '</b><span>' + r.t + '</span></div>'; }).join('') || '<div class="srow"><b>No classes today</b><span>See the full schedule</span></div>';
-  }
+  };
+  window.__renderToday();
 
   // free-class form: build a mailto fallback so the page works even before the form backend is connected
   var form = document.getElementById('bookForm');
@@ -115,20 +116,19 @@
   });
   setTimeout(function () { document.querySelectorAll('h1.display, h2.display').forEach(function (h) { var r = h.getBoundingClientRect(); if (r.top < window.innerHeight * 1.2) h.classList.add('in'); }); }, 1200);
 
-  // next class pill (hero + schedule): from window.SCHEDULE
-  var S = window.SCHEDULE || [];
+  // next class pill (hero + schedule): from window.SCHEDULE, re-run when the Gymdesk feed arrives
   function parseT(t) { var m = /(\d+):(\d+)\s*(am|pm)/i.exec(t); if (!m) return null; var h = +m[1] % 12 + (/pm/i.test(m[3]) ? 12 : 0); return h * 60 + (+m[2]); }
-  function nextClass() {
-    var now = new Date(), days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    for (var off = 0; off < 8; off++) {
+  window.__renderNext = function () {
+    var S = window.SCHEDULE || [], slot = document.getElementById('nextClass'); if (!slot || !S.length) return;
+    var now = new Date(), days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], n = null;
+    for (var off = 0; off < 8 && !n; off++) {
       var d = new Date(now); d.setDate(now.getDate() + off); var key = days[d.getDay()], cur = off === 0 ? now.getHours() * 60 + now.getMinutes() : -1;
       var todays = S.filter(function (r) { return r.d === key && parseT(r.t) !== null && parseT(r.t) > cur; }).sort(function (a, b) { return parseT(a.t) - parseT(b.t); });
-      if (todays.length) { var r = todays[0], mins = parseT(r.t) - (off === 0 ? cur : 0) + off * 1440; return { r: r, when: off === 0 ? (mins < 60 ? 'in ' + mins + ' min' : 'today at ' + r.t) : off === 1 ? 'tomorrow at ' + r.t : d.toLocaleDateString(undefined, { weekday: 'long' }) + ' at ' + r.t }; }
+      if (todays.length) { var r = todays[0], mins = parseT(r.t) - (off === 0 ? cur : 0) + off * 1440; n = { r: r, when: off === 0 ? (mins < 60 ? 'in ' + mins + ' min' : 'today at ' + r.t) : off === 1 ? 'tomorrow at ' + r.t : d.toLocaleDateString(undefined, { weekday: 'long' }) + ' at ' + r.t }; }
     }
-    return null;
-  }
-  var slot = document.getElementById('nextClass');
-  if (slot && S.length) { var n = nextClass(); if (n) slot.innerHTML = '<span class="dot"></span><span>Next class <b>' + n.r.c + '</b> · ' + n.when + '</span>'; else slot.hidden = true; }
+    if (n) slot.innerHTML = '<span class="dot"></span><span>Next class <b>' + n.r.c + '</b> · ' + n.when + '</span>'; else slot.hidden = true;
+  };
+  window.__renderNext();
 
   // class finder
   var finder = document.getElementById('finder');
@@ -207,3 +207,52 @@
   });
 })();
 
+
+/* ===== Gymdesk-fed schedule: week grid + feeds the "today" list and "next class" pill ===== */
+(function () {
+  var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  function fmt(m) { var h = Math.floor(m / 60), mm = m % 60; return ((h + 11) % 12 + 1) + ':' + (mm < 10 ? '0' : '') + mm + (h < 12 ? ' am' : ' pm'); }
+  function split(title) { var m = /^([^(]+?)\s*\(([^)]*)\)\s*(.*)$/.exec(title); if (!m) return { n: title.replace(/\s+/g, ' ').trim(), s: '' }; var n = m[1].trim(), s = m[2].trim(); if (m[3]) n += ' · ' + m[3].trim(); return { n: n, s: s }; }
+  function publicEvents(ev) { return ev.filter(function (e) { return !/private class/i.test(e.title); }); }
+  function renderGrid(ev) {
+    var grid = document.getElementById('wgrid'); if (!grid) return;
+    var todayIdx = new Date().getDay(), nowMin = new Date().getHours() * 60 + new Date().getMinutes();
+    var times = []; ev.forEach(function (e) { if (times.indexOf(e.start) < 0) times.push(e.start); }); times.sort(function (a, b) { return a - b; });
+    var html = '<div class="wrow head"><div class="wt"></div>';
+    for (var d = 1; d <= 6; d++) html += '<div class="wc' + (d === todayIdx ? ' today' : '') + '" data-d="' + d + '">' + DAYS[d] + '</div>';
+    html += '</div>';
+    times.forEach(function (t) {
+      html += '<div class="wrow" data-t="' + t + '"><div class="wt">' + fmt(t) + '</div>';
+      for (var d = 1; d <= 6; d++) {
+        var cell = ev.filter(function (e) { return e.day === d && e.start === t; });
+        html += '<div class="wc' + (cell.length ? ' has' : '') + '" data-d="' + d + '">' + cell.map(function (e) {
+          var p = split(e.title), live = d === todayIdx && nowMin >= e.start && nowMin < e.end;
+          return '<span class="ev c-' + (e.color || 'black') + (live ? ' now' : '') + '">' + p.n + '<small>' + (p.s ? p.s + ' · ' : '') + fmt(e.start).replace(' ', '') + '–' + fmt(e.end).replace(' ', '') + '</small></span>';
+        }).join('') + '</div>';
+      }
+      html += '</div>';
+    });
+    grid.innerHTML = html;
+    var legend = document.getElementById('legend');
+    if (legend) legend.innerHTML = '<span class="c-black">Fundamentals 1 · all levels</span><span class="c-magenta">Fundamentals 2 · 3 stripes +</span><span class="c-blue">Advanced &amp; No-Gi · blue belt +</span><span class="c-purple">Women\'s class</span><span class="c-green">Kids · Eagles</span><span class="c-orange">Teens</span><span class="c-red">Free trial</span>';
+    // mobile: one day at a time, driven by the day pills
+    var pills = document.querySelectorAll('#days .day');
+    function showDay(name) {
+      var d = DAYS.indexOf(name); if (d < 1) d = 1;
+      pills.forEach(function (b) { b.setAttribute('aria-pressed', DAYS.indexOf(b.getAttribute('data-d')) === d ? 'true' : 'false'); });
+      grid.querySelectorAll('.wc').forEach(function (c) { c.classList.toggle('on', +c.getAttribute('data-d') === d); });
+      grid.querySelectorAll('.wrow[data-t]').forEach(function (r) { var c = r.querySelector('.wc[data-d="' + d + '"]'); r.classList.toggle('hide-d', !(c && c.classList.contains('has'))); });
+    }
+    pills.forEach(function (b) { b.addEventListener('click', function () { showDay(b.getAttribute('data-d')); }); });
+    showDay(todayIdx >= 1 && todayIdx <= 6 ? DAYS[todayIdx] : 'Mon');
+  }
+  function feedLegacy(ev) { // shape used by the home "today" list and the "next class" pill
+    window.SCHEDULE = ev.map(function (e) { var p = split(e.title); return { d: DAYS[e.day], t: fmt(e.start), c: p.n, k: '' }; });
+    if (window.__renderToday) window.__renderToday(); if (window.__renderNext) window.__renderNext();
+  }
+  var url = window.SCHEDULE_URL || 'js/schedule.json';
+  fetch(url, { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (data) {
+    var ev = publicEvents(data.events || []); if (!ev.length) return;
+    renderGrid(ev); feedLegacy(ev);
+  }).catch(function () { var g = document.getElementById('wgrid'); if (g) g.innerHTML = '<p class="small muted" style="padding:16px">The live schedule could not load. <a class="link" href="https://cobrinha-jiu-jitsu-academy.gymdesk.com/schedule">Open it in Gymdesk</a>.</p>'; });
+})();
