@@ -212,7 +212,7 @@
 (function () {
   var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   function fmt(m) { var h = Math.floor(m / 60), mm = m % 60; return ((h + 11) % 12 + 1) + ':' + (mm < 10 ? '0' : '') + mm + (h < 12 ? ' am' : ' pm'); }
-  function split(title) { var m = /^([^(]+?)\s*\(([^)]*)\)\s*(.*)$/.exec(title); if (!m) return { n: title.replace(/\s+/g, ' ').trim(), s: '' }; var n = m[1].trim(), s = m[2].trim(); if (m[3]) n += ' · ' + m[3].trim(); return { n: n, s: s }; }
+  function split(title) { var m = /^([^(]+?)\s*\(([^)]*)\)\s*(.*)$/.exec(title); if (!m) return { n: title.replace(/\s+/g, ' ').trim(), s: '' }; var n = m[1].replace(/[\s\-–:]+$/, '').trim(), s = m[2].trim(), rest = m[3].replace(/^[\s\-–:·]+/, '').trim(); if (rest) s = s ? s + ' · ' + rest : rest; return { n: n, s: s }; }
   function publicEvents(ev) { return ev.filter(function (e) { return !/private class/i.test(e.title); }); }
   function renderGrid(ev) {
     var grid = document.getElementById('wgrid'); if (!grid) return;
@@ -234,7 +234,7 @@
     });
     grid.innerHTML = html;
     var legend = document.getElementById('legend');
-    if (legend) legend.innerHTML = '<span class="c-black">Fundamentals 1 · all levels</span><span class="c-magenta">Fundamentals 2 · 3 stripes +</span><span class="c-blue">Advanced &amp; No-Gi · blue belt +</span><span class="c-purple">Women\'s class</span><span class="c-green">Kids · Eagles</span><span class="c-orange">Teens</span><span class="c-red">Free trial</span>';
+    if (legend) legend.innerHTML = '<span class="c-black">Fundamentals 1 · all levels</span><span class="c-magenta">Fundamentals 2 · 3 stripes +</span><span class="c-blue">Advanced &amp; No-Gi · blue belt +</span><span class="c-purple">Women\'s class</span><span class="c-brown">Baby Eagles 3–4</span><span class="c-green">Little Eagles 5–6</span><span class="c-yellow">Eagle Warriors 7–12</span><span class="c-orange">Teens 13–16</span><span class="c-red">Free trial</span>';
     // mobile: one day at a time, driven by the day pills
     var pills = document.querySelectorAll('#days .day');
     function showDay(name) {
