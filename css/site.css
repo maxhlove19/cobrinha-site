@@ -76,6 +76,11 @@ h3.display{font-size:clamp(28px,3vw,40px)}
 .menu-tel{font-family:var(--body)!important;font-size:16px!important;text-transform:none!important;border:0!important;color:var(--tx-lm)}
 body.menu-open{overflow:hidden}
 
+
+/* mobile default: every grid gets an explicit shrinkable column so images can't force the page wider than the screen */
+.grid-2,.grid-3,.grid-4,.split,.steps,.prog,.people,.strip,.cta-in,.foot-in,.form .row,.pick,.facts,.today,.sec-head{grid-template-columns:minmax(0,1fr)}
+.media,.media img,.person .ph img,.gallery img{max-width:100%;min-width:0}
+
 /* sections */
 section{padding:72px 0}
 @media(min-width:900px){section{padding:104px 0}}
