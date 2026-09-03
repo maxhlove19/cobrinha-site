@@ -70,6 +70,7 @@
   <div class="hero-in">
     <div class="hero-copy">
     <p class="eyebrow light">Brazilian Jiu-Jitsu · Wilshire &amp; Highland, Los Angeles</p>
+    <div class="next" id="nextClass"><span class="dot"></span><span>Loading today's classes…</span></div>
     <h1 class="display">Train with a legend.<br><span class="thin">Start as a beginner.</span></h1>
     <p class="lead">Led by Rubens "Cobrinha" Charles, five-time World Champion. Sixteen years on Wilshire. Your first class is free.</p>
     <div class="hero-actions">
@@ -128,18 +129,38 @@
 
 <section>
   <div class="wrap">
+    <div class="finder rv" id="finder">
+      <div>
+        <p class="eyebrow light">Thirty seconds</p>
+        <h3>Which class is right for you?</h3>
+        <div class="fq" style="margin-top:18px">
+          <p>Who is it for?</p>
+          <div class="opts"><button class="opt" data-g="who" data-v="me" aria-pressed="true">Me</button><button class="opt" data-g="who" data-v="kid" aria-pressed="false">My child</button><button class="opt" data-g="who" data-v="woman" aria-pressed="false">Me · women-only class</button></div>
+          <p>Experience</p>
+          <div class="opts"><button class="opt" data-g="exp" data-v="none" aria-pressed="true">None</button><button class="opt" data-g="exp" data-v="some" aria-pressed="false">White belt · some</button><button class="opt" data-g="exp" data-v="blue" aria-pressed="false">Blue belt and up</button></div>
+          <p>What you want</p>
+          <div class="opts"><button class="opt" data-g="goal" data-v="fit" aria-pressed="true">Fitness &amp; self-defense</button><button class="opt" data-g="goal" data-v="comp" aria-pressed="false">Compete</button><button class="opt" data-g="goal" data-v="nogi" aria-pressed="false">No-Gi</button></div>
+        </div>
+      </div>
+      <div class="fres" id="fres" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
     <div class="sec-head rv">
       <p class="eyebrow">Programs</p>
       <h2 class="display">A class for where you are.</h2>
     </div>
     <div class="prog rv stagger">
       <a class="pcard" href="start.html"><img src="img/beginners.webp" alt="" loading="lazy"><div class="pin"><small>Adults · no experience</small><b>Beginners</b><span>Four-week course, three classes a week</span></div></a>
-      <a class="pcard" href="programs.html#fundamentals"><img src="img/class-adults.webp" alt="" loading="lazy"><div class="pin"><small>Adults · white to blue</small><b>Fundamentals</b><span>Levels 1, 2 and 3 by stripe</span></div></a>
-      <a class="pcard" href="programs.html#advanced"><img src="img/hero-mat-wide.webp" alt="" loading="lazy"><div class="pin"><small>Adults · blue belt and up</small><b>Advanced &amp; Competition</b><span>Cobrinha's room</span></div></a>
-      <a class="pcard" href="programs.html#nogi"><img src="img/facility-3.webp" alt="" loading="lazy"><div class="pin"><small>Adults · all levels</small><b>No-Gi</b><span>Six classes a week, Tuesday and Thursday</span></div></a>
-      <a class="pcard" href="programs.html#womens"><img src="img/facility-2.webp" alt="" loading="lazy"><div class="pin"><small>Women only · black belt coach</small><b>Women's</b><span>Tue 8 am · Sat 11:15 am · free trial Wed 6:10 pm</span></div></a>
+      <a class="pcard" href="programs.html#fundamentals"><img src="img/ig-fundamentals.webp" alt="" loading="lazy"><div class="pin"><small>Adults · white to blue</small><b>Fundamentals</b><span>Levels 1, 2 and 3 by stripe</span></div></a>
+      <a class="pcard" href="programs.html#advanced"><img src="img/ig-nogi-win.webp" alt="" loading="lazy"><div class="pin"><small>Adults · blue belt and up</small><b>Advanced &amp; Competition</b><span>Cobrinha's room</span></div></a>
+      <a class="pcard" href="programs.html#nogi"><img src="img/ig-nogi-1.webp" alt="" loading="lazy"><div class="pin"><small>Adults · all levels</small><b>No-Gi</b><span>Six classes a week, Tuesday and Thursday</span></div></a>
+      <a class="pcard" href="programs.html#womens"><img src="img/ig-womens-1.webp" alt="" loading="lazy"><div class="pin"><small>Women only · black belt coach</small><b>Women's</b><span>Tue 8 am · Sat 11:15 am · free trial Wed 6:10 pm</span></div></a>
       <a class="pcard" href="kids.html"><img src="img/kids-run.webp" alt="" loading="lazy"><div class="pin"><small>Ages 3–12</small><b>Kids · Eagles</b><span>Baby, Little and Warrior Eagles</span></div></a>
-      <a class="pcard" href="kids.html#teens"><img src="img/kids-medal.webp" alt="" loading="lazy"><div class="pin"><small>Ages 13–16</small><b>Teens</b><span>Tue &amp; Thu 5 pm</span></div></a>
+      <a class="pcard" href="kids.html#teens"><img src="img/ig-kids-coach.webp" alt="" loading="lazy"><div class="pin"><small>Ages 13–16</small><b>Teens</b><span>Tue &amp; Thu 5 pm</span></div></a>
       <a class="pcard" href="programs.html#private"><img src="img/cobrinha.webp" alt="" loading="lazy"><div class="pin"><small>One on one</small><b>Private lessons</b><span>Black and brown belt instructors</span></div></a>
     </div>
   </div>
@@ -176,13 +197,17 @@
       <p class="eyebrow light">Head coach</p>
       <h2 class="display">Rubens "Cobrinha" Charles</h2>
       <p class="lead">The only black belt in history to win ADCC, the Worlds, the Pans, the Europeans and the Brazilian Nationals in a single year. He teaches on this mat every week, and he teaches beginners.</p>
-      <ul class="titles">
-        <li><b>5×</b><span>IBJJF World Champion (2006–2009, 2017)</span></li>
-        <li><b>4×</b><span>IBJJF No-Gi World Champion</span></li>
-        <li><b>3×</b><span>ADCC World Champion (2013, 2015, 2017)</span></li>
-        <li><b>4×</b><span>Pan American Champion</span></li>
-        <li><b>HOF</b><span>IBJJF and ADCC Hall of Fame · "Best Guard of the Decade"</span></li>
-      </ul>
+      <div class="tl" id="tl" aria-label="Career timeline, tap a year">
+        <button class="tli" data-d="Black belt from Fernando Tereré. Won the CBJJO World Championship the same year, then Pro Jiu-Jitsu X in Japan."><b>2005</b><span>Black belt</span></button>
+        <button class="tli" data-d="First IBJJF World title at black belt, every opponent finished by submission. Titles followed in 2007, 2008 and 2009."><b>2006</b><span>World Champion</span></button>
+        <button class="tli" data-d="IBJJF No-Gi World Champion in 2007 and 2008, again in 2011 and 2012."><b>2007</b><span>No-Gi Worlds</span></button>
+        <button class="tli" data-d="Fourth straight IBJJF World title. Pan Champion 2007, 2008 and 2009."><b>2009</b><span>4th Worlds</span></button>
+        <button class="tli" data-d="Opened Cobrinha Brazilian Jiu-Jitsu on Wilshire Boulevard, Los Angeles. Same corner ever since."><b>2010</b><span>Wilshire opens</span></button>
+        <button class="tli" data-d="First ADCC World Championship gold, beating Rafael Mendes in the final. Won again in 2015 and 2017."><b>2013</b><span>ADCC gold</span></button>
+        <button class="tli" data-d="The Super Grand Slam: Europeans, Pans, Brazilian Nationals, Worlds and ADCC in a single year. The only black belt in history to do it."><b>2017</b><span>Super Grand Slam</span></button>
+        <button class="tli" data-d="IBJJF Hall of Fame and ADCC Hall of Fame. Voted Best Guard of the Decade by fellow world champions."><b>HOF</b><span>Hall of Fame</span></button>
+      </div>
+      <p class="tld" id="tld" aria-live="polite"></p>
       <p class="quote">"We don't just build competitors. We build champions for life."</p>
       <p class="muted">Cobrinha, to the kids' competition team</p>
       <a class="btn ghost" href="instructors.html" style="margin-top:14px">Meet all the instructors</a>
@@ -241,6 +266,22 @@
       <div class="plan" style="--i:3"><p class="plan-name">Kids &amp; teens</p><p class="plan-price">$257<span>/month</span></p><p class="plan-what">Their age group's classes</p><p class="plan-per">Family pricing when siblings or parents train</p></div>
     </div>
     <p class="rv" style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn red" href="free-class.html">Start with a free class</a><a class="btn ghost" href="pricing.html">Everything that's included</a></p>
+  </div>
+</section>
+
+<section class="mat">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">From the mat</p>
+      <h2 class="display">This week, on Instagram.</h2>
+      <p class="lead">Drills, kids classes and competition days, posted by the academy and our instructors. <a class="link" href="https://www.instagram.com/alliancecobrinha/" target="_blank" rel="noopener">Follow @alliancecobrinha</a>.</p>
+    </div>
+    <div class="grid-3 rv stagger">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DJfXq5xBn2c/" data-instgrm-version="14" style="margin:0;max-width:100%;min-width:0;background:#fff;border:1px solid var(--line);border-radius:4px"><a href="https://www.instagram.com/reel/DJfXq5xBn2c/" target="_blank" rel="noopener">Kids class drills · @alliancecobrinha</a></blockquote>
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/C8YdyOhxQ_j/" data-instgrm-version="14" style="margin:0;max-width:100%;min-width:0;background:#fff;border:1px solid var(--line);border-radius:4px"><a href="https://www.instagram.com/reel/C8YdyOhxQ_j/" target="_blank" rel="noopener">Fundamentals class drills · @alliancecobrinha</a></blockquote>
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DQ24Ck2CZ_z/" data-instgrm-version="14" style="margin:0;max-width:100%;min-width:0;background:#fff;border:1px solid var(--line);border-radius:4px"><a href="https://www.instagram.com/reel/DQ24Ck2CZ_z/" target="_blank" rel="noopener">Women's self-defense · @uchavalverde</a></blockquote>
+    </div>
+    <script async src="https://www.instagram.com/embed.js"></script>
   </div>
 </section>
 

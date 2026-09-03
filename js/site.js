@@ -99,3 +99,98 @@
     });
   }
 })();
+
+/* ===== engagement layer 2 ===== */
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // word-by-word reveal on display headings (skip headings that contain markup other than <br>)
+  if (!reduce) document.querySelectorAll('h1.display, h2.display').forEach(function (h) {
+    if (h.closest('.faq') || h.id === 'todayName') return;
+    var html = h.innerHTML; if (/<(?!br\s*\/?>)[a-z]/i.test(html) && !h.closest('.hero')) return;
+    if (h.closest('.hero')) { // hero has <span class="thin">; wrap words inside text nodes only
+      var i = 0; (function walk(n) { [].slice.call(n.childNodes).forEach(function (c) { if (c.nodeType === 3) { var f = document.createDocumentFragment(); c.textContent.split(/(\s+)/).forEach(function (t) { if (!t) return; if (/^\s+$/.test(t)) { f.appendChild(document.createTextNode(t)); return; } var s = document.createElement('span'); s.className = 'w'; s.style.setProperty('--w', i++); s.textContent = t; f.appendChild(s); }); n.replaceChild(f, c); } else if (c.nodeType === 1 && c.tagName !== 'BR') walk(c); }); })(h); return;
+    }
+    var idx = 0; h.innerHTML = html.split(/(<br\s*\/?>)/i).map(function (part) { if (/^<br/i.test(part)) return part; return part.split(/(\s+)/).map(function (t) { if (!t || /^\s+$/.test(t)) return t; return '<span class="w" style="--w:' + (idx++) + '">' + t + '</span>'; }).join(''); }).join('');
+    if (!h.closest('.rv')) { h.classList.add('rv'); }
+  });
+
+  // next class pill (hero + schedule): from window.SCHEDULE
+  var S = window.SCHEDULE || [];
+  function parseT(t) { var m = /(\d+):(\d+)\s*(am|pm)/i.exec(t); if (!m) return null; var h = +m[1] % 12 + (/pm/i.test(m[3]) ? 12 : 0); return h * 60 + (+m[2]); }
+  function nextClass() {
+    var now = new Date(), days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    for (var off = 0; off < 8; off++) {
+      var d = new Date(now); d.setDate(now.getDate() + off); var key = days[d.getDay()], cur = off === 0 ? now.getHours() * 60 + now.getMinutes() : -1;
+      var todays = S.filter(function (r) { return r.d === key && parseT(r.t) !== null && parseT(r.t) > cur; }).sort(function (a, b) { return parseT(a.t) - parseT(b.t); });
+      if (todays.length) { var r = todays[0], mins = parseT(r.t) - (off === 0 ? cur : 0) + off * 1440; return { r: r, when: off === 0 ? (mins < 60 ? 'in ' + mins + ' min' : 'today at ' + r.t) : off === 1 ? 'tomorrow at ' + r.t : d.toLocaleDateString(undefined, { weekday: 'long' }) + ' at ' + r.t }; }
+    }
+    return null;
+  }
+  var slot = document.getElementById('nextClass');
+  if (slot && S.length) { var n = nextClass(); if (n) slot.innerHTML = '<span class="dot"></span><span>Next class <b>' + n.r.c + '</b> · ' + n.when + '</span>'; else slot.hidden = true; }
+
+  // class finder
+  var finder = document.getElementById('finder');
+  if (finder) {
+    var st = { who: 'me', exp: 'none', goal: 'fit' };
+    var RES = {
+      kids: { l: 'Kids · Eagles', n: 'Your child\'s age group', t: 'Baby Eagles 3–4, Little Eagles 5–6, Eagle Warriors 7–12, Teens 13–16. Trials are one-on-one with an instructor.', s: ['Free trial: 3–4 Tue/Thu 3:30 pm · 5–6 Mon/Wed 3:30 pm', '7–12 Mon–Thu 5:00 pm · Teens Tue/Thu 5:00 pm', 'Gear rental $15, refunded when they sign up'], href: 'kids.html', cta: 'Book a kids trial' },
+      women: { l: 'Women only', n: 'Women\'s program', t: 'Taught by Ursula Valverde, black belt. Self-defense first, all levels together.', s: ['Free trial: Wednesday 6:10 pm (or Tue/Thu 6:10 pm)', 'Classes Tue 8 am · Sat 11:15 am', 'Gear rental $20, refunded when you sign up'], href: 'free-class.html?program=womens', cta: 'Book the women\'s trial' },
+      beg: { l: 'Start here', n: 'Four-week Beginners course', t: 'Built for zero experience: falls, escapes, first submissions. Then Fundamentals 1.', s: ['Free trial: Mon or Wed 8:00 pm · Thu 6:10 pm', 'Three classes a week for four weeks', 'Gear rental $20, refunded when you sign up'], href: 'start.html', cta: 'Book a free class' },
+      fund: { l: 'Adults', n: 'Fundamentals 1–3', t: 'Join at your stripe level with people at your level. Gi, with No-Gi Fundamentals Tue/Thu 6:10 pm.', s: ['Free trial: Mon or Wed 8:00 pm · Thu 6:10 pm', 'Mornings, lunchtimes and evenings', 'Drop-in $60 with gi, refunded if you sign up'], href: 'programs.html#fundamentals', cta: 'Book a free class' },
+      adv: { l: 'Blue belt and up', n: 'Advanced & Competition', t: 'Cobrinha\'s room. Ninety-minute classes, gi and no-gi, competition prep inside.', s: ['Mon & Wed 7:20 pm · Mon/Wed/Fri 12 pm', 'No-Gi Advanced Tue & Thu 12 pm', 'Drop-in $60 with gi, refunded if you sign up'], href: 'programs.html#advanced', cta: 'Reserve a spot' },
+      nogi: { l: 'All levels', n: 'No-Gi', t: 'Six classes a week, all on Tuesday and Thursday. Start in No-Gi Fundamentals.', s: ['Tue & Thu 6:10 pm Fundamentals', 'Tue & Thu 7:20 pm No-Gi · 12 pm Advanced', 'Free trial in any Fundamentals slot'], href: 'programs.html#nogi', cta: 'Book a free class' }
+    };
+    function pick() {
+      if (st.who === 'kid') return RES.kids; if (st.who === 'woman') return RES.women;
+      if (st.exp === 'none') return st.goal === 'nogi' ? RES.nogi : RES.beg;
+      if (st.exp === 'some') return st.goal === 'nogi' ? RES.nogi : RES.fund;
+      return st.goal === 'nogi' ? RES.nogi : RES.adv;
+    }
+    var out = document.getElementById('fres');
+    function render() {
+      var r = pick(); out.classList.add('flash');
+      setTimeout(function () { out.innerHTML = '<div class="rl">' + r.l + '</div><div class="rn">' + r.n + '</div><div class="rt">' + r.t + '</div><div class="rs">' + r.s.map(function (x) { return '<span>' + x + '</span>'; }).join('') + '</div><a class="btn red" href="' + r.href + '">' + r.cta + '</a>'; out.classList.remove('flash'); }, 160);
+    }
+    finder.querySelectorAll('.opt').forEach(function (b) {
+      b.addEventListener('click', function () { var g = b.getAttribute('data-g'); st[g] = b.getAttribute('data-v'); finder.querySelectorAll('.opt[data-g="' + g + '"]').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); }); b.setAttribute('aria-pressed', 'true'); render(); });
+    });
+    render();
+  }
+
+  // kids age picker
+  var age = document.getElementById('age');
+  if (age) {
+    var ao = document.getElementById('ageOut'), ar = document.getElementById('ageRes');
+    function grp(a) {
+      if (a < 3) return ['Not yet', 'Baby Eagles starts at 3. Come back on their third birthday; we save a spot.', ''];
+      if (a <= 4) return ['Baby Eagles', 'Tuesday & Thursday 4:10 pm · short, game-based classes', 'Free trial: Tue or Thu 3:30 pm, 30 minutes'];
+      if (a <= 6) return ['Little Eagles', 'Monday, Wednesday & Friday 4:10 pm', 'Free trial: Mon or Wed 3:30 pm, 30 minutes'];
+      if (a <= 12) return ['Eagle Warriors', 'Monday–Thursday 5:00 pm · Friday No-Gi 5:00 pm · Saturday 9:00 am', 'Free trial: any Mon–Thu 5:00 pm'];
+      if (a <= 16) return ['Eagle Teens', 'Tuesday & Thursday 5:00 pm', 'Free trial: Tue or Thu 5:00 pm'];
+      return ['Adult program', 'From 17, teens train with the adults: Fundamentals 1 to start.', 'Free trial: Mon or Wed 8:00 pm · Thu 6:10 pm'];
+    }
+    function upd() { var a = +age.value, g = grp(a); ao.textContent = a; ar.innerHTML = '<b>' + g[0] + '</b><i>' + g[1] + '</i>' + (g[2] ? '<i>' + g[2] + '</i>' : ''); }
+    age.addEventListener('input', upd); upd();
+  }
+
+  // titles timeline
+  var tl = document.getElementById('tl');
+  if (tl) {
+    var det = document.getElementById('tld');
+    tl.querySelectorAll('.tli').forEach(function (it) {
+      function on() { tl.querySelectorAll('.tli').forEach(function (x) { x.classList.remove('on'); }); it.classList.add('on'); det.classList.add('flash'); setTimeout(function () { det.textContent = it.getAttribute('data-d'); det.classList.remove('flash'); }, 120); }
+      it.addEventListener('mouseenter', on); it.addEventListener('click', on); it.addEventListener('focus', on);
+    });
+    var first = tl.querySelector('.tli'); if (first) first.click();
+  }
+
+  // schedule day pills + "now" highlight
+  var days = document.getElementById('days');
+  if (days) {
+    var rows = document.querySelectorAll('.sched tbody tr'), dn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], today = dn[new Date().getDay()], nowMin = new Date().getHours() * 60 + new Date().getMinutes();
+    var pills = days.querySelectorAll('.day');
+    pills.forEach(function (p) { if (p.getAttribute('data-d') === today) p.classList.add('today'); p.addEventListener('click', function () { var d = p.getAttribute('data-d'); pills.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); }); p.setAttribute('aria-pressed', 'true'); rows.forEach(function (r) { r.hidden = !(d === 'all' || r.querySelector('td.d').textContent.trim() === d); }); document.querySelectorAll('.tab').forEach(function (t) { t.setAttribute('aria-selected', t.getAttribute('data-filter') === 'all' ? 'true' : 'false'); }); }); });
+    rows.forEach(function (r) { var d = r.querySelector('td.d').textContent.trim(), m = /(\d+):(\d+)\s*(am|pm)/i.exec(r.querySelector('td.t').textContent); if (d === today && m) { var mm = (+m[1] % 12 + (/pm/i.test(m[3]) ? 12 : 0)) * 60 + (+m[2]); if (mm >= nowMin && mm < nowMin + 180) r.classList.add('now'); } });
+  }
+})();
