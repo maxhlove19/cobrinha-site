@@ -17,8 +17,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/site.css">
+<link rel="preload" as="image" href="img/hero-mat.webp" fetchpriority="high">
+<!-- Google Analytics 4: the academy's existing property (from the old site). Swap the ID if Dani has a newer one. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3M1H21M8Q"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-Z3M1H21M8Q',{anonymize_ip:true});</script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SportsActivityLocation","name":"Alliance Jiu Jitsu Los Angeles by Cobrinha","alternateName":"Cobrinha Brazilian Jiu-Jitsu & Fitness","telephone":"+1-323-931-9953","email":"info@cobrinhabjj.com","url":"https://www.cobrinhabjj.com/","address":{"@type":"PostalAddress","streetAddress":"4929 Wilshire Blvd #104","addressLocality":"Los Angeles","addressRegion":"CA","postalCode":"90010","addressCountry":"US"},"founder":{"@type":"Person","name":"Rubens Charles Maciel","alternateName":"Cobrinha"},"sameAs":["https://www.instagram.com/alliancecobrinha/","https://www.facebook.com/CobrinhaBJJ","https://www.youtube.com/user/Cobrinhabjj"]}
+{"@context": "https://schema.org", "@type": "SportsActivityLocation", "@id": "https://www.cobrinhabjj.com/#academy", "name": "Alliance Jiu Jitsu Los Angeles by Cobrinha", "alternateName": "Cobrinha Brazilian Jiu-Jitsu & Fitness", "description": "Brazilian Jiu-Jitsu academy in Los Angeles led by 5x World Champion Rubens 'Cobrinha' Charles. Adult beginners, kids, women's and no-gi classes. On Wilshire since 2010.", "telephone": "+1-323-931-9953", "email": "info@cobrinhabjj.com", "url": "https://www.cobrinhabjj.com/", "image": "https://maxhlove19.github.io/cobrinha-site/img/hero-mat.webp", "priceRange": "$257–$327 per month", "foundingDate": "2010", "address": {"@type": "PostalAddress", "streetAddress": "4929 Wilshire Blvd #104", "addressLocality": "Los Angeles", "addressRegion": "CA", "postalCode": "90010", "addressCountry": "US"}, "geo": {"@type": "GeoCoordinates", "latitude": 34.06216, "longitude": -118.3381}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "06:30", "closes": "21:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "12:15"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "10:00", "closes": "11:30"}], "founder": {"@type": "Person", "name": "Rubens Charles Maciel", "alternateName": "Cobrinha", "jobTitle": "Head coach"}, "sameAs": ["https://www.instagram.com/alliancecobrinha/", "https://www.facebook.com/CobrinhaBJJ", "https://www.youtube.com/user/Cobrinhabjj"], "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "200", "bestRating": "5"}}
 </script>
 </head>
 <body class="">
@@ -51,6 +55,7 @@
     <a href="start.html">Start here — adult beginners</a>
     <a href="https://cobrinha-jiu-jitsu-academy.gymdesk.com/signup" target="_blank" rel="noopener">Sign the waiver (before your first class)</a>
     <a href="kids.html">Kids &amp; teens</a>
+    <a href="womens.html">Women's program</a>
     <a href="programs.html">All programs</a>
     <a href="schedule.html">Schedule</a>
     <a href="academy.html">The academy</a>
@@ -66,7 +71,7 @@
 
 <main id="main">
 <header class="hero">
-  <img class="hero-img" src="img/hero-mat.webp" alt="Cobrinha seated at the front of a full mat of students at the Los Angeles academy" fetchpriority="high">
+  <img class="hero-img" src="img/hero-mat.webp" alt="Cobrinha seated at the front of a full mat of students at the Los Angeles academy" fetchpriority="high" width="1800" height="1013">
   <div class="hero-in">
     <div class="hero-copy">
     <p class="eyebrow light">Brazilian Jiu-Jitsu · Wilshire &amp; Highland, Los Angeles</p>
@@ -154,21 +159,21 @@
       <h2 class="display">A class for where you are.</h2>
     </div>
     <div class="prog rv stagger">
-      <a class="pcard" href="start.html"><img src="img/beginners.webp" alt="" loading="lazy"><div class="pin"><small>Adults · no experience</small><b>Beginners</b><span>Four-week course, three classes a week</span></div></a>
-      <a class="pcard" href="programs.html#fundamentals"><img src="img/ig-fundamentals.webp" alt="" loading="lazy"><div class="pin"><small>Adults · white to blue</small><b>Fundamentals</b><span>Levels 1, 2 and 3 by stripe</span></div></a>
-      <a class="pcard" href="programs.html#advanced"><img src="img/ig-nogi-win.webp" alt="" loading="lazy"><div class="pin"><small>Adults · blue belt and up</small><b>Advanced &amp; Competition</b><span>Cobrinha's room</span></div></a>
-      <a class="pcard" href="programs.html#nogi"><img src="img/ig-nogi-1.webp" alt="" loading="lazy"><div class="pin"><small>Adults · all levels</small><b>No-Gi</b><span>Six classes a week, Tuesday and Thursday</span></div></a>
-      <a class="pcard" href="programs.html#womens"><img src="img/ig-womens-1.webp" alt="" loading="lazy"><div class="pin"><small>Women only · black belt coach</small><b>Women's</b><span>Tue 8 am · Sat 11:15 am · free trial Wed 6:10 pm</span></div></a>
-      <a class="pcard" href="kids.html"><img src="img/kids-run.webp" alt="" loading="lazy"><div class="pin"><small>Ages 3–12</small><b>Kids · Eagles</b><span>Baby, Little and Warrior Eagles</span></div></a>
-      <a class="pcard" href="kids.html#teens"><img src="img/ig-kids-coach.webp" alt="" loading="lazy"><div class="pin"><small>Ages 13–16</small><b>Teens</b><span>Tue &amp; Thu 5 pm</span></div></a>
-      <a class="pcard" href="programs.html#private"><img src="img/cobrinha.webp" alt="" loading="lazy"><div class="pin"><small>One on one</small><b>Private lessons</b><span>Black and brown belt instructors</span></div></a>
+      <a class="pcard" href="start.html"><img src="img/beginners.webp" alt="" loading="lazy" width="846" height="564"><div class="pin"><small>Adults · no experience</small><b>Beginners</b><span>Four-week course, three classes a week</span></div></a>
+      <a class="pcard" href="programs.html#fundamentals"><img src="img/ig-fundamentals.webp" alt="" loading="lazy" width="720" height="1280"><div class="pin"><small>Adults · white to blue</small><b>Fundamentals</b><span>Levels 1, 2 and 3 by stripe</span></div></a>
+      <a class="pcard" href="programs.html#advanced"><img src="img/ig-nogi-win.webp" alt="" loading="lazy" width="901" height="1600"><div class="pin"><small>Adults · blue belt and up</small><b>Advanced &amp; Competition</b><span>Cobrinha's room</span></div></a>
+      <a class="pcard" href="programs.html#nogi"><img src="img/ig-nogi-1.webp" alt="" loading="lazy" width="899" height="1600"><div class="pin"><small>Adults · all levels</small><b>No-Gi</b><span>Six classes a week, Tuesday and Thursday</span></div></a>
+      <a class="pcard" href="womens.html"><img src="img/ig-womens-1.webp" alt="" loading="lazy" width="640" height="1136"><div class="pin"><small>Women only · black belt coach</small><b>Women's</b><span>Tue 8 am · Sat 11:15 am · free trial Wed 6:10 pm</span></div></a>
+      <a class="pcard" href="kids.html"><img src="img/kids-run.webp" alt="" loading="lazy" width="1800" height="1200"><div class="pin"><small>Ages 3–12</small><b>Kids · Eagles</b><span>Baby, Little and Warrior Eagles</span></div></a>
+      <a class="pcard" href="kids.html#teens"><img src="img/ig-kids-coach.webp" alt="" loading="lazy" width="640" height="1136"><div class="pin"><small>Ages 13–16</small><b>Teens</b><span>Tue &amp; Thu 5 pm</span></div></a>
+      <a class="pcard" href="programs.html#private"><img src="img/cobrinha.webp" alt="" loading="lazy" width="500" height="749"><div class="pin"><small>One on one</small><b>Private lessons</b><span>Black and brown belt instructors</span></div></a>
     </div>
   </div>
 </section>
 
 <section class="mat">
   <div class="wrap split">
-    <div class="media wide rv l"><img src="img/kids-run.webp" alt="Six young students in gis running across the mat, laughing" loading="lazy"></div>
+    <div class="media wide rv l"><img src="img/kids-run.webp" alt="Six young students in gis running across the mat, laughing" loading="lazy" width="1800" height="1200"></div>
     <div class="rv">
       <p class="eyebrow">Kids &amp; teens · the Eagles program</p>
       <h2 class="display">Confidence they earn themselves.</h2>
@@ -192,7 +197,7 @@
 
 <section class="dark" id="cobrinha">
   <div class="wrap split rev">
-    <div class="media tall rv r"><img src="img/cobrinha.webp" alt="Rubens Cobrinha Charles in his Alliance gi, arms crossed, smiling" loading="lazy"></div>
+    <div class="media tall rv r"><img src="img/cobrinha.webp" alt="Rubens Cobrinha Charles in his Alliance gi, arms crossed, smiling" loading="lazy" width="500" height="749"></div>
     <div class="rv">
       <p class="eyebrow light">Head coach</p>
       <h2 class="display">Rubens "Cobrinha" Charles</h2>
@@ -237,10 +242,10 @@
       <p class="lead">A full-size competition mat, a lounge for parents, changing rooms with showers, and a parking lot with validation. In the lobby of the building on the corner of Wilshire and Highland.</p>
     </div>
     <div class="gallery rv stagger">
-      <figure><img src="img/facility-1.webp" alt="Lounge area with black leather seating and the mat beyond" loading="lazy"></figure>
-      <figure><img src="img/facility-7.webp" alt="Framed championship photos and medals on the academy wall" loading="lazy"></figure>
-      <figure><img src="img/facility-2.webp" alt="The main training mat" loading="lazy"></figure>
-      <figure><img src="img/facility-4.webp" alt="Academy interior" loading="lazy"></figure>
+      <figure><img src="img/facility-1.webp" alt="Lounge area with black leather seating and the mat beyond" loading="lazy" width="1500" height="1000"></figure>
+      <figure><img src="img/facility-7.webp" alt="Framed championship photos and medals on the academy wall" loading="lazy" width="1500" height="1001"></figure>
+      <figure><img src="img/facility-2.webp" alt="The main training mat" loading="lazy" width="1500" height="1000"></figure>
+      <figure><img src="img/facility-4.webp" alt="Academy interior" loading="lazy" width="1500" height="1000"></figure>
     </div>
     <div class="facts rv stagger">
       <div class="fact"><b>7 days</b><span>classes Mon–Sat, open mat Sunday</span></div>
@@ -281,7 +286,7 @@
       <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/C8YdyOhxQ_j/" data-instgrm-version="14" style="margin:0;max-width:100%;min-width:0;background:#fff;border:1px solid var(--line);border-radius:4px"><a href="https://www.instagram.com/reel/C8YdyOhxQ_j/" target="_blank" rel="noopener">Fundamentals class drills · @alliancecobrinha</a></blockquote>
       <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DQ24Ck2CZ_z/" data-instgrm-version="14" style="margin:0;max-width:100%;min-width:0;background:#fff;border:1px solid var(--line);border-radius:4px"><a href="https://www.instagram.com/reel/DQ24Ck2CZ_z/" target="_blank" rel="noopener">Women's self-defense · @uchavalverde</a></blockquote>
     </div>
-    <script async src="https://www.instagram.com/embed.js"></script>
+    <script>(function(){var sec=document.currentScript.parentNode,done=false;function go(){if(done)return;done=true;var s=document.createElement("script");s.async=true;s.src="https://www.instagram.com/embed.js";document.body.appendChild(s);}if("IntersectionObserver" in window){new IntersectionObserver(function(e,o){if(e[0].isIntersecting){go();o.disconnect();}},{rootMargin:"600px"}).observe(sec);}else{go();}})();</script>
   </div>
 </section>
 
@@ -392,6 +397,7 @@ window.SCHEDULE=[
       <a href="start.html">Adult beginners</a>
       <a href="kids.html">Kids &amp; teens</a>
       <a href="programs.html">Programs</a>
+      <a href="womens.html">Women's program</a>
       <a href="schedule.html">Schedule</a>
       <a href="academy.html">Academy</a>
       <a href="instructors.html">Instructors</a>
