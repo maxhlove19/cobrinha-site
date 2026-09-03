@@ -198,8 +198,9 @@
 
 /* Spanish page: translate the shared chrome (nav, dock, footer CTAs) */
 (function(){
-  if(document.documentElement.lang!=="es")return;
-  var ES_STRINGS={"Book a free class":"Reservar clase gratis","Call":"Llamar","Sign the waiver":"Firmar la exención","Academy":"Academia","Programs":"Programas","Kids":"Niños","Schedule":"Horarios","Contact":"Contacto","Women's program":"Programa de mujeres","Membership":"Membresía","Q&A":"Preguntas","Instructors":"Instructores","Visit":"Visítanos","Beginners":"Principiantes","Free class":"Clase gratis","Pricing":"Precios","Privacy":"Privacidad","Call us":"Llámanos","Start here":"Empieza aquí","Home":"Inicio"};
+  var MAPS={pt:{"Book a free class":"Agendar aula grátis","Call":"Ligar","Sign the waiver":"Assinar o termo","Academy":"Academia","Programs":"Programas","Kids":"Kids","Schedule":"Horários","Contact":"Contato","Women's program":"Turma feminina","Membership":"Mensalidade","Q&A":"Perguntas","Instructors":"Professores","Visit":"Visite","Beginners":"Iniciantes","Free class":"Aula grátis","Pricing":"Preços","Privacy":"Privacidade","Call us":"Ligue","Start here":"Comece aqui","Home":"Início","Text us":"Mande mensagem","Sign the waiver · create your profile":"Assine o termo · cria seu cadastro"}};
+  MAPS.es={"Book a free class":"Reservar clase gratis","Call":"Llamar","Sign the waiver":"Firmar la exención","Academy":"Academia","Programs":"Programas","Kids":"Niños","Schedule":"Horarios","Contact":"Contacto","Women's program":"Programa de mujeres","Membership":"Membresía","Q&A":"Preguntas","Instructors":"Instructores","Visit":"Visítanos","Beginners":"Principiantes","Free class":"Clase gratis","Pricing":"Precios","Privacy":"Privacidad","Call us":"Llámanos","Start here":"Empieza aquí","Home":"Inicio","Text us":"Escríbenos","Sign the waiver · create your profile":"Firma la exención · crea tu perfil"};
+  var ES_STRINGS=MAPS[document.documentElement.lang]; if(!ES_STRINGS)return;
   document.querySelectorAll("nav a, .menu a, .dock a, .cta-band a, .cta-band h2, footer a, footer h4").forEach(function(a){
     var k=(a.textContent||"").replace(/\s+/g," ").trim();
     if(ES_STRINGS[k]){a.textContent=ES_STRINGS[k];}
