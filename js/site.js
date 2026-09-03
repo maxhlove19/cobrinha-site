@@ -206,3 +206,6 @@
     if(ES_STRINGS[k]){a.textContent=ES_STRINGS[k];}
   });
 })();
+
+/* reveal safety: nothing stays invisible if the observer never fires */
+setTimeout(function(){document.querySelectorAll('.display,.rv').forEach(function(e){e.classList.add('in');});},1200);
