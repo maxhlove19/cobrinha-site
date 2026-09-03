@@ -83,8 +83,7 @@
   if (today && window.SCHEDULE) {
     var d = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][new Date().getDay()];
     var list = window.SCHEDULE.filter(function (r) { return r.d === d; });
-    var head = document.getElementById('todayName'); if (head) head.textContent = d === 'Sun' ? 'Sunday — closed. Here is Monday' : 'Today, ' + { Mon: 'Monday', Tue: 'Tuesday', Wed: 'Wednesday', Thu: 'Thursday', Fri: 'Friday', Sat: 'Saturday' }[d];
-    if (d === 'Sun') list = window.SCHEDULE.filter(function (r) { return r.d === 'Mon'; });
+    var head = document.getElementById('todayName'); if (head) head.textContent = 'Today, ' + { Sun: 'Sunday', Mon: 'Monday', Tue: 'Tuesday', Wed: 'Wednesday', Thu: 'Thursday', Fri: 'Friday', Sat: 'Saturday' }[d];
     today.innerHTML = list.map(function (r) { return '<div class="srow"><b>' + r.c + '</b><span>' + r.t + '</span></div>'; }).join('') || '<div class="srow"><b>No classes today</b><span>See the full schedule</span></div>';
   }
 

@@ -98,10 +98,11 @@ section{padding:72px 0}
 .hero{position:relative;min-height:88svh;display:flex;align-items:flex-end;color:#fff;padding:0;overflow:hidden;background:var(--ink)}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;animation:kb 26s ease-in-out infinite alternate;opacity:.92}
 @keyframes kb{from{transform:scale(1)}to{transform:scale(1.07)}}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,12,.15) 0%,rgba(11,11,12,.25) 45%,rgba(11,11,12,.92) 100%)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,12,.2) 0%,rgba(11,11,12,.38) 45%,rgba(11,11,12,.94) 100%)}
 .hero-in{position:relative;z-index:1;padding:140px var(--gut) 48px;width:100%;max-width:var(--wrap);margin:0 auto}
 .hero h1{max-width:12ch}
-.hero h1 .thin{color:var(--tx-lm)}
+.hero h1 .thin{color:#fff;opacity:.92}
+.hero h1,.hero .lead{text-shadow:0 2px 24px rgba(0,0,0,.45)}
 .hero .lead{margin:22px 0 28px;color:#E9E6DF;max-width:56ch}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px}
 .chips{display:flex;flex-wrap:wrap;gap:10px 22px;padding-top:22px;border-top:1px solid rgba(255,255,255,.18)}
