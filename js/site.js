@@ -23,7 +23,6 @@
     var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
     rv.forEach(function (el) { io.observe(el); });
     rv.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top < window.innerHeight * 1.1) show(el); });
-    setTimeout(function () { rv.forEach(show); }, 900);
   } else { rv.forEach(show); }
 
   // stagger: give each child an index for the delay
