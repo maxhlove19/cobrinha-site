@@ -8,7 +8,9 @@
 <meta property="og:title" content="Contact — Alliance Jiu Jitsu Los Angeles by Cobrinha">
 <meta property="og:description" content="Call (323) 931-9953, email info@cobrinhabjj.com, or visit Alliance Jiu Jitsu Los Angeles at 4929 Wilshire Blvd #104, Los Angeles, CA 90010.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="img/hero-mat.webp">
+<meta property="og:image" content="https://maxhlove19.github.io/cobrinha-site/img/hero-mat.webp">
+<meta property="og:url" content="https://maxhlove19.github.io/cobrinha-site/contact.html">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0B0B0C">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,7 +75,11 @@
 
 <section>
   <div class="wrap grid-2">
-    <form class="form rv" id="bookForm" method="post" novalidate>
+    <form class="form rv l" id="bookForm" method="post" action="https://formsubmit.co/info@cobrinhabjj.com" novalidate>
+      <input type="hidden" name="_subject" value="Website message — cobrinhabjj.com">
+      <input type="hidden" name="_next" value="{{thanks}}">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
       <p class="label">Send a message</p>
       <div class="row">
         <label>Your name <input type="text" name="name" autocomplete="name" required></label>

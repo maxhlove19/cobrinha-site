@@ -8,7 +8,9 @@
 <meta property="og:title" content="Book a free class — Alliance Jiu Jitsu Los Angeles by Cobrinha">
 <meta property="og:description" content="Book your free Brazilian Jiu-Jitsu class in Los Angeles. Adults, kids and women's programs. No experience needed; rent a gi at the desk, refunded when you sign up.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="img/hero-mat.webp">
+<meta property="og:image" content="https://maxhlove19.github.io/cobrinha-site/img/hero-mat.webp">
+<meta property="og:url" content="https://maxhlove19.github.io/cobrinha-site/free-class.html">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0B0B0C">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,7 +74,11 @@
 
 <section>
   <div class="wrap grid-2">
-    <form class="form rv l" id="bookForm" method="post" novalidate>
+    <form class="form rv l" id="bookForm" method="post" action="https://formsubmit.co/info@cobrinhabjj.com" novalidate>
+      <input type="hidden" name="_subject" value="Free class request — cobrinhabjj.com">
+      <input type="hidden" name="_next" value="{{thanks}}">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
       <p class="label">Who is the class for?</p>
       <div class="pick">
         <label><input type="radio" name="program" value="Adult beginner" checked><b>Me — adult beginner</b><span>Never trained, or a long time ago</span></label>

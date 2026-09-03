@@ -346,3 +346,7 @@ section:not(.dark) .plan-name,section:not(.dark) .plan-per,section:not(.dark) .p
 /* progress line */
 .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--red);z-index:60;transition:width .12s linear}
 @media(prefers-reduced-motion:reduce){.rv.l,.rv.r,.rv.up,.stagger>*{transform:none;opacity:1;transition:none}.ticker-in{animation:none}.media.px img{transform:none}.pcard:hover{transform:none}}
+
+/* instructor placeholder until the professional photos arrive */
+.person .ph.ph-init{display:grid;place-items:center;font-family:var(--disp);font-size:72px;color:var(--tx-m);background:linear-gradient(135deg,var(--mat),#dcd8cf);position:relative}
+.person .ph.ph-init::after{content:"Photo coming";position:absolute;bottom:12px;left:0;right:0;text-align:center;font:700 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--tx-m)}
