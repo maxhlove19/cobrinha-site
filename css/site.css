@@ -456,3 +456,12 @@ section:not(.dark) .plan-name,section:not(.dark) .plan-per,section:not(.dark) .p
 .explore a:hover{border-color:var(--gold-d);transform:translateY(-2px)}
 .explore a b{display:block;font-family:var(--disp);font-weight:600;text-transform:uppercase;font-size:24px;letter-spacing:.01em;margin-bottom:4px}
 .explore a span{font-size:14px;color:var(--tx-m)}
+/* gold band needs dark ink, not the white that sat on the old red (2026-09-05) */
+.cta-band{color:var(--ink)}
+.cta-band .eyebrow,.cta-band .eyebrow.light{color:#5C3D00}
+.cta-band .lead,.cta-band p{color:#1F1A0A}
+.cta-band .display{color:var(--ink)}
+.cta-band .btn.red,.cta-band .btn.ink{background:var(--ink);color:#fff}
+.cta-band .btn.red:hover,.cta-band .btn.ink:hover{background:#222}
+.cta-band .btn.ghost{color:var(--ink);border-color:rgba(0,0,0,.55)}
+.cta-band .btn.ghost:hover{border-color:#000;background:rgba(0,0,0,.06)}
