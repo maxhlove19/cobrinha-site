@@ -465,3 +465,13 @@ section:not(.dark) .plan-name,section:not(.dark) .plan-per,section:not(.dark) .p
 .cta-band .btn.red:hover,.cta-band .btn.ink:hover{background:#222}
 .cta-band .btn.ghost{color:var(--ink);border-color:rgba(0,0,0,.55)}
 .cta-band .btn.ghost:hover{border-color:#000;background:rgba(0,0,0,.06)}
+/* 2026-09-05 Alliance pass, part 2: every gold surface carries dark ink; display face always 600 */
+.dock-book{color:#000}
+.plan.hot::before{color:#000}
+.ticker{color:#000;border-top-color:rgba(0,0,0,.12)}
+.opt[aria-pressed="true"]{color:#000}
+.day[aria-pressed="true"]{color:#000}
+.wrow.head .wc.today{color:#000}
+.plan-count,.wrow.head .wc{font-family:var(--disp);letter-spacing:0}
+.display,.chip b,.stat b,.ticker-in span,.menu-in a,.plan-price,.plan-count,.wrow.head .wc,.hero-badge{font-weight:600}
+.chip b,.stat b{letter-spacing:0}
