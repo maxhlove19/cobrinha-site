@@ -2,6 +2,8 @@
 (function () {
   // year
   var y = document.getElementById('yr'); if (y) y.textContent = new Date().getFullYear();
+  // academy age: opened on Wilshire in 2010, never hardcode the number
+  document.querySelectorAll('[data-years]').forEach(function (e) { var y = new Date().getFullYear() - 2010; e.textContent = y; if (e.hasAttribute('data-count')) e.setAttribute('data-count', y); });
 
   // mobile menu
   var burger = document.getElementById('burger'), menu = document.getElementById('menu');
@@ -95,7 +97,7 @@
       ev.preventDefault();
       var f = new FormData(form), lines = [];
       f.forEach(function (v, k) { if (v) lines.push(k + ': ' + v); });
-      location.href = 'mailto:info@cobrinhabjj.com?subject=' + encodeURIComponent('Free class request — ' + (f.get('program') || '')) + '&body=' + encodeURIComponent(lines.join('\n'));
+      location.href = 'mailto:info@cobrinhabjj.com?subject=' + encodeURIComponent('Kids\' free trial request — ' + (f.get('program') || '')) + '&body=' + encodeURIComponent(lines.join('\n'));
     });
   }
 })();
@@ -136,11 +138,11 @@
     var st = { who: 'me', exp: 'none', goal: 'fit' };
     var RES = {
       kids: { l: 'Kids · Eagles', n: 'Your child\'s age group', t: 'Baby Eagles 3–4, Little Eagles 5–6, Eagle Warriors 7–12, Teens 13–16. Trials are one-on-one with an instructor.', s: ['Free trial: 3–4 Tue/Thu 3:30 pm · 5–6 Mon/Wed 3:30 pm', '7–12 Mon–Thu 5:00 pm · Teens Tue/Thu 5:00 pm', 'Gear rental $15, refunded when they sign up'], href: 'kids.html', cta: 'Book a kids trial' },
-      women: { l: 'Women only', n: 'Women\'s program', t: 'Taught by Ursula Valverde, black belt. Self-defense first, all levels together.', s: ['Free trial: Wednesday 6:10 pm (or Tue/Thu 6:10 pm)', 'Classes Tue 8 am · Sat 11:15 am', 'Gear rental $20, refunded when you sign up'], href: 'free-class.html?program=womens', cta: 'Book the women\'s trial' },
-      beg: { l: 'Start here', n: 'Four-week Beginners course', t: 'Built for zero experience: falls, escapes, first submissions. Then Fundamentals 1.', s: ['Free trial: Mon or Wed 8:00 pm · Thu 6:10 pm', 'Three classes a week for four weeks', 'Gear rental $20, refunded when you sign up'], href: 'start.html', cta: 'Book a free class' },
-      fund: { l: 'Adults', n: 'Fundamentals 1–3', t: 'Join at your stripe level with people at your level. Gi, with No-Gi Fundamentals Tue/Thu 6:10 pm.', s: ['Free trial: Mon or Wed 8:00 pm · Thu 6:10 pm', 'Mornings, lunchtimes and evenings', 'Drop-in $60 with gi, refunded if you sign up'], href: 'programs.html#fundamentals', cta: 'Book a free class' },
+      women: { l: 'Women only', n: 'Women\'s program', t: 'Taught by Ursula Valverde, black belt. Self-defense first, all levels together.', s: ['Mon & Wed 6:10 pm · Tue 8:00 am · Sat 11:15 am', 'Start with the four-week Beginners course or sign up directly', 'Gear rental $20, refunded when you sign up'], href: 'start.html', cta: 'Start training' },
+      beg: { l: 'Start here', n: 'Four-week Beginners course', t: 'Built for zero experience: falls, escapes, first submissions. Then Fundamentals 1.', s: ['Mon & Wed 8:00 pm · Thu 6:10 pm, rolling start', 'Three classes a week for four weeks', 'Gear rental $20, refunded when you sign up'], href: 'start.html', cta: 'Start training' },
+      fund: { l: 'Adults', n: 'Fundamentals 1–3', t: 'Join at your stripe level with people at your level. Gi, with No-Gi Fundamentals Tue/Thu 6:10 pm.', s: ['Start with the four-week Beginners course or sign up directly', 'Mornings, lunchtimes and evenings', 'Drop-in $60 with gi, refunded if you sign up'], href: 'start.html', cta: 'Start training' },
       adv: { l: 'Blue belt and up', n: 'Advanced & Competition', t: 'Cobrinha\'s room. Ninety-minute classes, gi and no-gi, competition prep inside.', s: ['Mon & Wed 7:20 pm · Mon/Wed/Fri 12 pm', 'No-Gi Advanced Tue & Thu 12 pm', 'Drop-in $60 with gi, refunded if you sign up'], href: 'programs.html#advanced', cta: 'Reserve a spot' },
-      nogi: { l: 'All levels', n: 'No-Gi', t: 'Six classes a week, all on Tuesday and Thursday. Start in No-Gi Fundamentals.', s: ['Tue & Thu 6:10 pm Fundamentals', 'Tue & Thu 7:20 pm No-Gi · 12 pm Advanced', 'Free trial in any Fundamentals slot'], href: 'programs.html#nogi', cta: 'Book a free class' }
+      nogi: { l: 'All levels', n: 'No-Gi', t: 'Six classes a week, all on Tuesday and Thursday. Start in No-Gi Fundamentals.', s: ['Tue & Thu 6:10 pm Fundamentals', 'Tue & Thu 7:20 pm No-Gi · 12 pm Advanced', 'Start with the four-week Beginners course or sign up directly'], href: 'start.html', cta: 'Start training' }
     };
     function pick() {
       if (st.who === 'kid') return RES.kids; if (st.who === 'woman') return RES.women;
@@ -169,7 +171,7 @@
       if (a <= 6) return ['Little Eagles', 'Monday, Wednesday & Friday 4:10 pm', 'Free trial: Mon or Wed 3:30 pm, 30 minutes'];
       if (a <= 12) return ['Eagle Warriors', 'Monday–Thursday 5:00 pm · Friday No-Gi 5:00 pm · Saturday 9:00 am', 'Free trial: any Mon–Thu 5:00 pm'];
       if (a <= 16) return ['Eagle Teens', 'Tuesday & Thursday 5:00 pm', 'Free trial: Tue or Thu 5:00 pm'];
-      return ['Adult program', 'From 17, teens train with the adults: Fundamentals 1 to start.', 'Free trial: Mon or Wed 8:00 pm · Thu 6:10 pm'];
+      return ['Adult program', 'From 17, teens train with the adults: the four-week Beginners course, then Fundamentals 1.', 'Beginners course Mon & Wed 8:00 pm · Thu 6:10 pm, or sign up directly'];
     }
     function upd() { var a = +age.value, g = grp(a); ao.textContent = a; ar.innerHTML = '<b>' + g[0] + '</b><i>' + g[1] + '</i>' + (g[2] ? '<i>' + g[2] + '</i>' : ''); }
     age.addEventListener('input', upd); upd();
@@ -198,8 +200,8 @@
 
 /* Spanish page: translate the shared chrome (nav, dock, footer CTAs) */
 (function(){
-  var MAPS={pt:{"Book a free class":"Agendar aula grátis","Call":"Ligar","Sign the waiver":"Assinar o termo","Academy":"Academia","Programs":"Programas","Kids":"Kids","Schedule":"Horários","Contact":"Contato","Women's program":"Turma feminina","Membership":"Mensalidade","Q&A":"Perguntas","Instructors":"Professores","Visit":"Visite","Beginners":"Iniciantes","Free class":"Aula grátis","Pricing":"Preços","Privacy":"Privacidade","Call us":"Ligue","Start here":"Comece aqui","Home":"Início","Text us":"Mande mensagem","Sign the waiver · create your profile":"Assine o termo · cria seu cadastro"}};
-  MAPS.es={"Book a free class":"Reservar clase gratis","Call":"Llamar","Sign the waiver":"Firmar la exención","Academy":"Academia","Programs":"Programas","Kids":"Niños","Schedule":"Horarios","Contact":"Contacto","Women's program":"Programa de mujeres","Membership":"Membresía","Q&A":"Preguntas","Instructors":"Instructores","Visit":"Visítanos","Beginners":"Principiantes","Free class":"Clase gratis","Pricing":"Precios","Privacy":"Privacidad","Call us":"Llámanos","Start here":"Empieza aquí","Home":"Inicio","Text us":"Escríbenos","Sign the waiver · create your profile":"Firma la exención · crea tu perfil"};
+  var MAPS={pt:{"Start training":"Comece a treinar","Come train with us this week":"Venha treinar com a gente esta semana","Call":"Ligar","Sign the waiver":"Assinar o termo","Academy":"Academia","Programs":"Programas","Kids":"Kids","Schedule":"Horários","Contact":"Contato","Women's program":"Turma feminina","Membership":"Mensalidade","Q&A":"Perguntas","Instructors":"Professores","Cobrinha's record":"Conquistas do Cobrinha","Visit":"Visite","Beginners":"Iniciantes","Free class":"Aula grátis","Pricing":"Preços","Privacy":"Privacidade","Call us":"Ligue","Start here":"Comece aqui","Home":"Início","Text us":"Mande mensagem","Sign the waiver · create your profile":"Assine o termo · cria seu cadastro"}};
+  MAPS.es={"Start training":"Empieza a entrenar","Come train with us this week":"Ven a entrenar con nosotros esta semana","Call":"Llamar","Sign the waiver":"Firmar la exención","Academy":"Academia","Programs":"Programas","Kids":"Niños","Schedule":"Horarios","Contact":"Contacto","Women's program":"Programa de mujeres","Membership":"Membresía","Q&A":"Preguntas","Instructors":"Instructores","Cobrinha's record":"Palmarés de Cobrinha","Visit":"Visítanos","Beginners":"Principiantes","Free class":"Clase gratis","Pricing":"Precios","Privacy":"Privacidad","Call us":"Llámanos","Start here":"Empieza aquí","Home":"Inicio","Text us":"Escríbenos","Sign the waiver · create your profile":"Firma la exención · crea tu perfil"};
   var ES_STRINGS=MAPS[document.documentElement.lang]; if(!ES_STRINGS)return;
   document.querySelectorAll("nav a, .menu a, .dock a, .cta-band a, .cta-band h2, footer a, footer h4").forEach(function(a){
     var k=(a.textContent||"").replace(/\s+/g," ").trim();
@@ -210,7 +212,9 @@
 
 /* ===== Gymdesk-fed schedule: week grid + feeds the "today" list and "next class" pill ===== */
 (function () {
-  var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], COLS = [1, 2, 3, 4, 5, 6, 0]; // Mon–Sat, then Sunday (members only)
+  // ponytail: css/site.css .wrow still says repeat(6,…); this rule widens the desktop grid to seven days until that line is changed
+  document.head.insertAdjacentHTML('beforeend', '<style>@media(min-width:900px){.wrow{grid-template-columns:78px repeat(7,minmax(0,1fr))}}</style>');
   function fmt(m) { var h = Math.floor(m / 60), mm = m % 60; return ((h + 11) % 12 + 1) + ':' + (mm < 10 ? '0' : '') + mm + (h < 12 ? ' am' : ' pm'); }
   function split(title) { var m = /^([^(]+?)\s*\(([^)]*)\)\s*(.*)$/.exec(title); if (!m) return { n: title.replace(/\s+/g, ' ').trim(), s: '' }; var n = m[1].replace(/[\s\-–:]+$/, '').trim(), s = m[2].trim(), rest = m[3].replace(/^[\s\-–:·]+/, '').trim(); if (rest) s = s ? s + ' · ' + rest : rest; return { n: n, s: s }; }
   function publicEvents(ev) { return ev.filter(function (e) { return !/private class/i.test(e.title); }); }
@@ -219,35 +223,35 @@
     var todayIdx = new Date().getDay(), nowMin = new Date().getHours() * 60 + new Date().getMinutes();
     var times = []; ev.forEach(function (e) { if (times.indexOf(e.start) < 0) times.push(e.start); }); times.sort(function (a, b) { return a - b; });
     var html = '<div class="wrow head"><div class="wt"></div>';
-    for (var d = 1; d <= 6; d++) html += '<div class="wc' + (d === todayIdx ? ' today' : '') + '" data-d="' + d + '">' + DAYS[d] + '</div>';
+    COLS.forEach(function (d) { html += '<div class="wc' + (d === todayIdx ? ' today' : '') + '" data-d="' + d + '">' + DAYS[d] + '</div>'; });
     html += '</div>';
     times.forEach(function (t) {
       html += '<div class="wrow" data-t="' + t + '"><div class="wt">' + fmt(t) + '</div>';
-      for (var d = 1; d <= 6; d++) {
+      COLS.forEach(function (d) {
         var cell = ev.filter(function (e) { return e.day === d && e.start === t; });
         html += '<div class="wc' + (cell.length ? ' has' : '') + '" data-d="' + d + '">' + cell.map(function (e) {
           var p = split(e.title), live = d === todayIdx && nowMin >= e.start && nowMin < e.end;
           return '<span class="ev c-' + (e.color || 'black') + (live ? ' now' : '') + '">' + p.n + '<small>' + (p.s ? p.s + ' · ' : '') + fmt(e.start).replace(' ', '') + '–' + fmt(e.end).replace(' ', '') + '</small></span>';
         }).join('') + '</div>';
-      }
+      });
       html += '</div>';
     });
     grid.innerHTML = html;
     var legend = document.getElementById('legend');
-    if (legend) legend.innerHTML = '<span class="c-black">Fundamentals 1 · all levels</span><span class="c-magenta">Fundamentals 2 · 3 stripes +</span><span class="c-blue">Advanced &amp; No-Gi · blue belt +</span><span class="c-purple">Women\'s class</span><span class="c-brown">Baby Eagles 3–4</span><span class="c-green">Little Eagles 5–6</span><span class="c-yellow">Eagle Warriors 7–12</span><span class="c-orange">Teens 13–16</span><span class="c-red">Free trial</span>';
+    if (legend) legend.innerHTML = '<span class="c-black">Fundamentals 1 · all levels</span><span class="c-magenta">Fundamentals 2 · 3 stripes +</span><span class="c-blue">Advanced &amp; No-Gi · blue belt +</span><span class="c-purple">Women\'s class</span><span class="c-brown">Baby Eagles 3–4</span><span class="c-green">Little Eagles 5–6</span><span class="c-yellow">Eagle Warriors 7–12</span><span class="c-orange">Teens 13–16</span>';
     // mobile: one day at a time, driven by the day pills
     var pills = document.querySelectorAll('#days .day');
     function showDay(name) {
-      var d = DAYS.indexOf(name); if (d < 1) d = 1;
+      var d = DAYS.indexOf(name); if (d < 0) d = 1;
       pills.forEach(function (b) { b.setAttribute('aria-pressed', DAYS.indexOf(b.getAttribute('data-d')) === d ? 'true' : 'false'); });
       grid.querySelectorAll('.wc').forEach(function (c) { c.classList.toggle('on', +c.getAttribute('data-d') === d); });
       grid.querySelectorAll('.wrow[data-t]').forEach(function (r) { var c = r.querySelector('.wc[data-d="' + d + '"]'); r.classList.toggle('hide-d', !(c && c.classList.contains('has'))); });
     }
     pills.forEach(function (b) { b.addEventListener('click', function () { showDay(b.getAttribute('data-d')); }); });
-    showDay(todayIdx >= 1 && todayIdx <= 6 ? DAYS[todayIdx] : 'Mon');
+    showDay(DAYS[todayIdx]);
   }
   function feedLegacy(ev) { // shape used by the home "today" list and the "next class" pill
-    window.SCHEDULE = ev.map(function (e) { var p = split(e.title); return { d: DAYS[e.day], t: fmt(e.start), c: p.n, k: '' }; });
+    window.SCHEDULE = ev.map(function (e) { var p = split(e.title); return { d: DAYS[e.day], t: fmt(e.start), c: p.n + (/members only/i.test(p.s) ? ' · members only' : ''), k: '' }; });
     if (window.__renderToday) window.__renderToday(); if (window.__renderNext) window.__renderNext();
   }
   var url = window.SCHEDULE_URL || 'js/schedule.json';

@@ -3,6 +3,7 @@
 Gymdesk renders each class as <div class="schedule-event" data-event-info="{json}">; we read that JSON."""
 import html, json, re, sys, urllib.request, collections
 URL="https://cobrinha-jiu-jitsu-academy.gymdesk.com/schedule"
+SUNDAY={"day":0,"start":600,"end":675,"title":"All Levels BJJ (members only)","color":"black","id":None}
 def fetch():
     req=urllib.request.Request(URL,headers={"User-Agent":"Mozilla/5.0 (site schedule sync)"})
     return urllib.request.urlopen(req,timeout=30).read().decode("utf-8","replace")
@@ -11,6 +12,7 @@ def parse(h):
     for m in re.finditer(r'data-event-info="([^"]+)"', h):
         e=json.loads(html.unescape(m.group(1)))
         if not e.get("website_visible",1): continue
+        if "free trial" in e["title"].lower(): continue  # adults have no free trial; the public feed is stale
         hh,mm=e["start"].split(":")[:2]; start=int(hh)*60+int(mm); end=start+int(e.get("duration",60))
         out.append({"day":int(e["day"]),"start":start,"end":end,"title":e["title"].strip(),"color":e.get("color",""),"id":e.get("id")})
     # de-dup (the page can repeat an event in its details panel)
@@ -19,6 +21,7 @@ def parse(h):
         k=(e["day"],e["start"],e["title"])
         if k in seen: continue
         seen.add(k); uniq.append(e)
+    uniq.append(SUNDAY)  # the public feed omits it (day 0 = Sunday, as JS getDay)
     uniq.sort(key=lambda e:(e["day"],e["start"]))
     return uniq
 if __name__=="__main__":
