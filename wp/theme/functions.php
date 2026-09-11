@@ -35,6 +35,7 @@ function cobrinha_schedule_events() {
 			$e = json_decode( html_entity_decode( $raw, ENT_QUOTES | ENT_HTML5 ), true );
 			if ( ! is_array( $e ) || empty( $e['title'] ) || ( isset( $e['website_visible'] ) && ! $e['website_visible'] ) ) { continue; }
 			if ( false !== stripos( $e['title'], 'free trial' ) ) { continue; } // adults have no free trial; the public feed is stale
+			if ( stripos( $e['title'], 'free trial' ) !== false ) { continue; } // Gymdesk still lists trial slots that do not run (Max, 2026-09-10)
 			list( $hh, $mm ) = explode( ':', $e['start'] );
 			$start = intval( $hh ) * 60 + intval( $mm );
 			$key   = $e['day'] . '|' . $start . '|' . $e['title'];
@@ -68,7 +69,7 @@ add_action( 'wp_head', function () {
 // Pages the theme expects to exist. Created once on activation with the matching template.
 add_action( 'init', function () {
 	if ( get_option( 'cobrinha_pages_created' ) ) { return; }
-	$pages = array( 'start' => 'Start here', 'kids' => 'Kids & teens', 'programs' => 'Programs', 'schedule' => 'Schedule', 'academy' => 'The academy', 'instructors' => 'Instructors', 'accomplishments' => 'Competition record', 'visit' => 'Visiting & parking', 'pricing' => 'Membership', 'faq' => 'Questions & answers', 'contact' => 'Contact', 'free-class' => 'Book a kids\' free trial class', 'privacy' => 'Privacy policy' );
+	$pages = array( 'start' => 'Start here', 'kids' => 'Kids & teens', 'programs' => 'Programs', 'schedule' => 'Schedule', 'academy' => 'The academy', 'instructors' => 'Instructors', 'accomplishments' => 'Competition record', 'visit' => 'Visiting & parking', 'pricing' => 'Membership', 'faq' => 'Questions & answers', 'contact' => 'Contact', 'free-class' => 'Book a kids\' free trial class', 'privacy' => 'Privacy policy', 'reviews' => 'What students say' );
 	foreach ( $pages as $slug => $title ) {
 		if ( ! get_page_by_path( $slug ) ) {
 			$id = wp_insert_post( array( 'post_title' => $title, 'post_name' => $slug, 'post_type' => 'page', 'post_status' => 'publish', 'post_content' => '' ) );
