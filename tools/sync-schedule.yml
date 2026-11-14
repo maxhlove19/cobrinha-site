@@ -1,0 +1,28 @@
+# Keeps js/schedule.json in step with the academy's Gymdesk schedule.
+# Runs every morning (about 5 am Los Angeles) and can be run by hand from the Actions tab.
+name: Sync schedule from Gymdesk
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pull the public Gymdesk schedule
+        run: python3 tools/fetch_gymdesk.py js/schedule.json
+      - name: Commit if it changed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet js/schedule.json; then echo "No schedule change."; exit 0; fi
+          git config user.name "schedule-sync"
+          git config user.email "schedule-sync@users.noreply.github.com"
+          git add js/schedule.json
+          git commit -m "Schedule synced from Gymdesk"
+          git push
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds" || true

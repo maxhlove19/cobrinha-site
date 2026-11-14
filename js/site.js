@@ -2,8 +2,8 @@
 (function () {
   // year
   var y = document.getElementById('yr'); if (y) y.textContent = new Date().getFullYear();
-  // academy age: opened on Wilshire in 2010, never hardcode the number
-  document.querySelectorAll('[data-years]').forEach(function (e) { var y = new Date().getFullYear() - 2010; e.textContent = y; if (e.hasAttribute('data-count')) e.setAttribute('data-count', y); });
+  // academy age: opened on Wilshire in 2011, never hardcode the number
+  document.querySelectorAll('[data-years]').forEach(function (e) { var y = new Date().getFullYear() - 2011; e.textContent = y; if (e.hasAttribute('data-count')) e.setAttribute('data-count', y); });
 
   // mobile menu
   var burger = document.getElementById('burger'), menu = document.getElementById('menu');
@@ -137,7 +137,7 @@
   if (finder) {
     var st = { who: 'me', exp: 'none', goal: 'fit' };
     var RES = {
-      kids: { l: 'Kids · Eagles', n: 'Your child\'s age group', t: 'Baby Eagles 3–4, Little Eagles 5–6, Eagle Warriors 7–12, Teens 13–16. Trials are one-on-one with an instructor.', s: ['Free trial: 3–4 Tue/Thu 3:30 pm · 5–6 Mon/Wed 3:30 pm', '7–12 Mon–Thu 5:00 pm · Teens Tue/Thu 5:00 pm', 'Gear rental $15, refunded when they sign up'], href: 'kids.html', cta: 'Book a kids trial' },
+      kids: { l: 'Kids · Eagles', n: 'Your child\'s age group', t: 'Baby Eagles 3–4, Little Eagles 5–6, Eagle Warriors 7–12, Teens 13–16. Trials are one-on-one with an instructor.', s: ['Free trial on Mon, Wed or Fri: ages 3–6 at 3:30 pm', 'Ages 7–16 at 5:00 pm', 'Gear rental $15, refunded when they sign up'], href: 'free-class.html', cta: 'Book free trial' },
       women: { l: 'Women only', n: 'Women\'s program', t: 'Taught by Ursula Valverde, black belt. Self-defense first, all levels together.', s: ['Mon & Wed 6:10 pm · Tue 8:00 am · Sat 11:15 am', 'Start with the four-week Beginners course or sign up directly', 'Gear rental $20, refunded when you sign up'], href: 'start.html', cta: 'Start training' },
       beg: { l: 'Start here', n: 'Four-week Beginners course', t: 'Built for zero experience: falls, escapes, first submissions. Then Fundamentals 1.', s: ['Mon & Wed 8:00 pm · Thu 6:10 pm, rolling start', 'Three classes a week for four weeks', 'Gear rental $20, refunded when you sign up'], href: 'start.html', cta: 'Start training' },
       fund: { l: 'Adults', n: 'Fundamentals 1–3', t: 'Join at your stripe level with people at your level. Gi, with No-Gi Fundamentals Tue/Thu 6:10 pm.', s: ['Start with the four-week Beginners course or sign up directly', 'Mornings, lunchtimes and evenings', 'Drop-in $60 with gi, refunded if you sign up'], href: 'start.html', cta: 'Start training' },
@@ -167,10 +167,10 @@
     var ao = document.getElementById('ageOut'), ar = document.getElementById('ageRes');
     function grp(a) {
       if (a < 3) return ['Not yet', 'Baby Eagles starts at 3. Come back on their third birthday; we save a spot.', ''];
-      if (a <= 4) return ['Baby Eagles', 'Tuesday & Thursday 4:10 pm · short, game-based classes', 'Free trial: Tue or Thu 3:30 pm, 30 minutes'];
-      if (a <= 6) return ['Little Eagles', 'Monday, Wednesday & Friday 4:10 pm', 'Free trial: Mon or Wed 3:30 pm, 30 minutes'];
-      if (a <= 12) return ['Eagle Warriors', 'Monday–Thursday 5:00 pm · Friday No-Gi 5:00 pm · Saturday 9:00 am', 'Free trial: any Mon–Thu 5:00 pm'];
-      if (a <= 16) return ['Eagle Teens', 'Tuesday & Thursday 5:00 pm', 'Free trial: Tue or Thu 5:00 pm'];
+      if (a <= 4) return ['Baby Eagles', 'Tuesday & Thursday 4:10 pm · short, game-based classes', 'Free trial: Mon, Wed or Fri 3:30 pm, 30 minutes'];
+      if (a <= 6) return ['Little Eagles', 'Monday, Wednesday & Friday 4:10 pm', 'Free trial: Mon, Wed or Fri 3:30 pm, 30 minutes'];
+      if (a <= 12) return ['Eagle Warriors', 'Monday–Thursday 5:00 pm · Friday No-Gi 5:00 pm · Saturday 9:00 am', 'Free trial: Mon, Wed or Fri 5:00 pm'];
+      if (a <= 16) return ['Eagle Teens', 'Tuesday & Thursday 5:00 pm', 'Free trial: Mon, Wed or Fri 5:00 pm'];
       return ['Adult program', 'From 17, teens train with the adults: the four-week Beginners course, then Fundamentals 1.', 'Beginners course Mon & Wed 8:00 pm · Thu 6:10 pm, or sign up directly'];
     }
     function upd() { var a = +age.value, g = grp(a); ao.textContent = a; ar.innerHTML = '<b>' + g[0] + '</b><i>' + g[1] + '</i>' + (g[2] ? '<i>' + g[2] + '</i>' : ''); }
@@ -182,7 +182,7 @@
   if (tl) {
     var det = document.getElementById('tld');
     tl.querySelectorAll('.tli').forEach(function (it) {
-      function on() { tl.querySelectorAll('.tli').forEach(function (x) { x.classList.remove('on'); }); it.classList.add('on'); det.classList.add('flash'); setTimeout(function () { det.textContent = it.getAttribute('data-d'); det.classList.remove('flash'); }, 120); }
+      function on() { tl.querySelectorAll('.tli').forEach(function (x) { x.classList.remove('on'); }); it.classList.add('on'); if (!det) return; det.classList.add('flash'); setTimeout(function () { det.textContent = it.getAttribute('data-d'); det.classList.remove('flash'); }, 120); }
       it.addEventListener('mouseenter', on); it.addEventListener('click', on); it.addEventListener('focus', on);
     });
     var first = tl.querySelector('.tli'); if (first) first.click();
@@ -200,8 +200,8 @@
 
 /* Spanish page: translate the shared chrome (nav, dock, footer CTAs) */
 (function(){
-  var MAPS={pt:{"Start training":"Comece a treinar","Come train with us this week":"Venha treinar com a gente esta semana","Call":"Ligar","Sign the waiver":"Assinar o termo","Academy":"Academia","Programs":"Programas","Kids":"Kids","Schedule":"Horários","Contact":"Contato","Women's program":"Turma feminina","Membership":"Mensalidade","Q&A":"Perguntas","Instructors":"Professores","Cobrinha's record":"Conquistas do Cobrinha","Visit":"Visite","Beginners":"Iniciantes","Free class":"Aula grátis","Pricing":"Preços","Privacy":"Privacidade","Call us":"Ligue","Start here":"Comece aqui","Home":"Início","Text us":"Mande mensagem","Sign the waiver · create your profile":"Assine o termo · cria seu cadastro"}};
-  MAPS.es={"Start training":"Empieza a entrenar","Come train with us this week":"Ven a entrenar con nosotros esta semana","Call":"Llamar","Sign the waiver":"Firmar la exención","Academy":"Academia","Programs":"Programas","Kids":"Niños","Schedule":"Horarios","Contact":"Contacto","Women's program":"Programa de mujeres","Membership":"Membresía","Q&A":"Preguntas","Instructors":"Instructores","Cobrinha's record":"Palmarés de Cobrinha","Visit":"Visítanos","Beginners":"Principiantes","Free class":"Clase gratis","Pricing":"Precios","Privacy":"Privacidad","Call us":"Llámanos","Start here":"Empieza aquí","Home":"Inicio","Text us":"Escríbenos","Sign the waiver · create your profile":"Firma la exención · crea tu perfil"};
+  var MAPS={pt:{"Start training":"Comece a treinar","Come train with us this week":"Venha treinar com a gente esta semana","Call":"Ligar","Sign the waiver":"Assinar o termo","Academy":"Academia","Programs":"Programas","Kids":"Kids","Schedule":"Horários","Contact":"Contato","Women's program":"Turma feminina","Membership":"Mensalidade","Q&A":"Perguntas","Instructors":"Professores","Cobrinha's record":"Conquistas do Cobrinha","Visit":"Visite","Beginners":"Iniciantes","Free class":"Aula grátis","Pricing":"Preços","Privacy":"Privacidade","Call us":"Ligue","Start here":"Comece aqui","Home":"Início","Text us":"Mande mensagem","Sign the waiver · create your profile":"Assine o termo · cria seu cadastro","Privates":"Particulares","Visit":"Visite","Private lessons":"Aulas particulares","Book a private lesson":"Agende uma aula particular","Book a kids' free trial":"Agende a aula grátis (kids)","Book kids' free trial":"Aula grátis (kids)","Adult beginners course":"Curso para iniciantes","Kids & teens":"Crianças e adolescentes","All programs":"Todos os programas","Who is Cobrinha":"Quem é o Cobrinha","Visitor info & parking":"Visitantes e estacionamento","Questions & answers":"Perguntas e respostas","Reviews":"Avaliações","Holiday closures":"Feriados (fechado)","Book free trial":"Agendar aula grátis"}};
+  MAPS.es={"Start training":"Empieza a entrenar","Come train with us this week":"Ven a entrenar con nosotros esta semana","Call":"Llamar","Sign the waiver":"Firmar la exención","Academy":"Academia","Programs":"Programas","Kids":"Niños","Schedule":"Horarios","Contact":"Contacto","Women's program":"Programa de mujeres","Membership":"Membresía","Q&A":"Preguntas","Instructors":"Instructores","Cobrinha's record":"Palmarés de Cobrinha","Visit":"Visítanos","Beginners":"Principiantes","Free class":"Clase gratis","Pricing":"Precios","Privacy":"Privacidad","Call us":"Llámanos","Start here":"Empieza aquí","Home":"Inicio","Text us":"Escríbenos","Sign the waiver · create your profile":"Firma la exención · crea tu perfil","Privates":"Privadas","Visit":"Visítanos","Private lessons":"Clases privadas","Book a private lesson":"Reserva una clase privada","Book a kids' free trial":"Reserva la clase gratis (niños)","Book kids' free trial":"Clase gratis (niños)","Adult beginners course":"Curso para principiantes","Kids & teens":"Niños y adolescentes","All programs":"Todos los programas","Who is Cobrinha":"Quién es Cobrinha","Visitor info & parking":"Visitantes y estacionamiento","Questions & answers":"Preguntas y respuestas","Reviews":"Reseñas","Holiday closures":"Días festivos (cerrado)","Book free trial":"Reservar clase gratis"};
   var ES_STRINGS=MAPS[document.documentElement.lang]; if(!ES_STRINGS)return;
   document.querySelectorAll("nav a, .menu a, .dock a, .cta-band a, .cta-band h2, footer a, footer h4").forEach(function(a){
     var k=(a.textContent||"").replace(/\s+/g," ").trim();
@@ -259,4 +259,99 @@
     var ev = publicEvents(data.events || []); if (!ev.length) return;
     renderGrid(ev); feedLegacy(ev);
   }).catch(function () { var g = document.getElementById('wgrid'); if (g) g.innerHTML = '<p class="small muted" style="padding:16px">The live schedule could not load. <a class="link" href="https://cobrinha-jiu-jitsu-academy.gymdesk.com/schedule">Open it in Gymdesk</a>.</p>'; });
+})();
+
+
+/* ===== 2026-11-14: holidays, kids free-trial booking, thanks page ===== */
+(function () {
+  function iso(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function nice(d, o) { return d.toLocaleDateString('en-US', o || { weekday: 'long', month: 'long', day: 'numeric' }); }
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var H = (window.HOLIDAYS || []).map(function (h) { var p = h[0].split('-'); return { d: new Date(+p[0], +p[1] - 1, +p[2]), k: h[0], n: h[1] }; })
+    .filter(function (h) { return h.d >= today; }).sort(function (a, b) { return a.d - b.d; });
+  var closed = {}; H.forEach(function (h) { closed[h.k] = h.n; });
+  window.__closed = closed;
+
+  // holiday lists
+  document.querySelectorAll('.hol-list').forEach(function (ul) {
+    ul.innerHTML = H.slice(0, 8).map(function (h) { return '<li><b>' + nice(h.d, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }) + '</b> <span>· ' + h.n + '</span></li>'; }).join('') || '<li>No closures coming up.</li>';
+  });
+  var next = H[0];
+  document.querySelectorAll('.hol-inline').forEach(function (e) { if (next) e.textContent = 'Next: ' + nice(next.d, { month: 'long', day: 'numeric' }) + ' (' + next.n + ')'; });
+  // closed today: replace the "today" list on the home page
+  var tk = iso(today);
+  if (closed[tk]) {
+    var t = document.getElementById('today'); if (t) t.innerHTML = '<div class="srow"><b>Closed today</b><span>' + closed[tk] + '</span></div>';
+    var nc = document.getElementById('nextClass'); if (nc) nc.innerHTML = '<span class="dot"></span><span>Closed today for ' + closed[tk] + '</span>';
+  }
+
+  // ---- kids free-trial booking ----
+  // Trial days: Monday, Wednesday, Friday only. Booking window: the rest of this month;
+  // from the 25th, next month's spots open too. Holidays above are skipped.
+  var TRIAL = {
+    days: [1, 3, 5],
+    openNextMonthOn: 25,
+    groups: {
+      '3-4': { name: 'Baby Eagles (ages 3–4)', time: '3:30 pm', len: '30 min' },
+      '5-6': { name: 'Little Eagles (ages 5–6)', time: '3:30 pm', len: '30 min' },
+      '7-12': { name: 'Eagle Warriors (ages 7–12)', time: '5:00 pm', len: '1 hour' },
+      '13-16': { name: 'Eagle Teens (ages 13–16)', time: '5:00 pm', len: '1 hour' }
+    }
+  };
+  var form = document.getElementById('bookForm'), sel = document.getElementById('tGroup');
+  if (form && sel) {
+    var box = document.getElementById('tDays'), sum = document.getElementById('tSum'), err = document.getElementById('tErr'), win = document.getElementById('tWindow');
+    var fDate = document.getElementById('tDate'), fTime = document.getElementById('tTimeIn'), fGroup = document.getElementById('tGroupName');
+    var chosen = null;
+    function lastDay() {
+      var end = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+      if (today.getDate() >= TRIAL.openNextMonthOn) end = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+      return end;
+    }
+    function dates() {
+      var out = [], d = new Date(today); d.setDate(d.getDate() + 1); var end = lastDay();
+      for (; d <= end; d.setDate(d.getDate() + 1)) if (TRIAL.days.indexOf(d.getDay()) > -1 && !closed[iso(d)]) out.push(new Date(d));
+      return out;
+    }
+    var end = lastDay();
+    win.textContent = 'Open days through ' + nice(end, { month: 'long', day: 'numeric' }) + '. New spots open every month.';
+    function update() {
+      var g = TRIAL.groups[sel.value];
+      fGroup.value = g ? g.name : '';
+      if (!g) { box.innerHTML = '<p class="small muted">Choose an age group first.</p>'; sum.hidden = true; return; }
+      var ds = dates();
+      box.innerHTML = ds.length ? ds.map(function (d) { var k = iso(d); return '<button type="button" class="tday" role="radio" aria-checked="' + (chosen === k) + '" data-k="' + k + '"><b>' + nice(d, { weekday: 'short' }) + '</b><small>' + nice(d, { month: 'short', day: 'numeric' }) + ' · ' + g.time + '</small></button>'; }).join('')
+        : '<p class="small muted">No open days left this month. Call or text (323) 931-9953 and we\'ll fit you in.</p>';
+      box.querySelectorAll('.tday').forEach(function (b) { b.addEventListener('click', function () { chosen = b.getAttribute('data-k'); update(); }); });
+      if (chosen && !ds.some(function (d) { return iso(d) === chosen; })) chosen = null;
+      if (chosen) {
+        var p = chosen.split('-'), cd = new Date(+p[0], +p[1] - 1, +p[2]);
+        fDate.value = nice(cd, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }); fTime.value = g.time + ' (' + g.len + ')';
+        sum.innerHTML = '<b>' + g.name + '</b><br>' + fDate.value + ' at ' + g.time + ' · ' + g.len + ', one-on-one';
+        sum.hidden = false;
+      } else { fDate.value = ''; fTime.value = ''; sum.hidden = true; }
+    }
+    sel.addEventListener('change', function () { chosen = null; update(); });
+    var qa = new URLSearchParams(location.search).get('age'); if (qa && TRIAL.groups[qa]) sel.value = qa;
+    update();
+    form.addEventListener('submit', function (ev) {
+      var miss = !sel.value ? 'Choose an age group.' : !chosen ? 'Pick a day.' : !form.name.value.trim() ? 'Add your name.' : !form.phone.value.trim() ? 'Add a phone number.' : !/.+@.+\..+/.test(form.email.value) ? 'Add a valid email.' : '';
+      if (miss) { ev.preventDefault(); err.textContent = miss; err.hidden = false; return; }
+      err.hidden = true;
+      var g = TRIAL.groups[sel.value];
+      form.querySelector('[name="_subject"]').value = 'Kids\' free trial booked: ' + fDate.value + ' ' + g.time + ' · ' + g.name;
+      var nx = form.querySelector('[name="_next"]'); nx.value = nx.value.split('?')[0] + '?d=' + encodeURIComponent(fDate.value) + '&t=' + encodeURIComponent(g.time) + '&g=' + encodeURIComponent(g.name);
+    });
+  }
+
+  // thanks page: show what was booked
+  var lead = document.getElementById('thxLead'), q = new URLSearchParams(location.search);
+  if (lead && q.get('d')) {
+    var esc = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    lead.innerHTML = 'Free trial booked: <b>' + esc(q.get('g') || '') + '</b>, ' + esc(q.get('d')) + ' at ' + esc(q.get('t') || '') + '. We\'ll confirm by text or email. Need to change it? Call or text <a class="link" href="tel:+13239319953">(323) 931-9953</a>.';
+  }
+
+  // kids age slider: send the "Book" button to the right age group
+  var age = document.getElementById('age'), ab = document.getElementById('ageBook');
+  if (age && ab) { var setA = function () { var a = +age.value, k = a <= 4 ? '3-4' : a <= 6 ? '5-6' : a <= 12 ? '7-12' : '13-16'; ab.href = 'free-class.html?age=' + k; ab.hidden = a < 3 || a > 16; }; age.addEventListener('input', setA); setA(); }
 })();

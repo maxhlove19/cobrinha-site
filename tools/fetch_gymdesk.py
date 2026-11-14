@@ -7,6 +7,12 @@ SUNDAY={"day":0,"start":600,"end":675,"title":"All Levels BJJ (members only)","c
 def fetch():
     req=urllib.request.Request(URL,headers={"User-Agent":"Mozilla/5.0 (site schedule sync)"})
     return urllib.request.urlopen(req,timeout=30).read().decode("utf-8","replace")
+FIX=[(r"\s+"," "),(r"\(\s+","("),(r"\s+\)",")"),(r"(\w)\(",r"\1 ("),(r"Fundamantals","Fundamentals"),(r"\bNoGi\b","No-Gi"),
+     (r"^Women BJJ Class$","Women's Class"),(r"\s*-\s*\(","  ("),(r"\s+"," ")]
+def clean(t):
+    t=t.strip()
+    for a,b in FIX: t=re.sub(a,b,t)
+    return t.strip()
 def parse(h):
     out=[]
     for m in re.finditer(r'data-event-info="([^"]+)"', h):
@@ -14,7 +20,8 @@ def parse(h):
         if not e.get("website_visible",1): continue
         if "free trial" in e["title"].lower(): continue  # adults have no free trial; the public feed is stale
         hh,mm=e["start"].split(":")[:2]; start=int(hh)*60+int(mm); end=start+int(e.get("duration",60))
-        out.append({"day":int(e["day"]),"start":start,"end":end,"title":e["title"].strip(),"color":e.get("color",""),"id":e.get("id")})
+        if "private class" in e["title"].lower(): continue  # privates live on private.html
+        out.append({"day":int(e["day"]),"start":start,"end":end,"title":clean(e["title"]),"color":e.get("color",""),"id":e.get("id")})
     # de-dup (the page can repeat an event in its details panel)
     seen=set(); uniq=[]
     for e in out:
