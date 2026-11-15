@@ -263,6 +263,7 @@ section{padding:72px 0}
 .phero.img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45}
 .phero .wrap{position:relative;z-index:1}
 .phero .lead{color:#D8D4CB}
+.phero h1+.lead{margin-top:16px}
 .phero .eyebrow{color:var(--gold)}
 .crumbs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx-lm);margin-bottom:22px}
 .crumbs a:hover{color:#fff}
